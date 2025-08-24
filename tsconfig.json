@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    // Environment Settings
+    "target": "ES2022",
+    "module": "ES2022",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "shared": [
+        "shared/src"
+      ]
+    },
+    "outDir": "dist",
+    // Output Settings
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+    // Type Checking
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    // Other recommended options
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}

@@ -1,0 +1,68 @@
+version: "3.9"
+
+services:
+  core-db:
+    image: postgres:15
+    container_name: core-db
+    environment:
+      POSTGRES_USER: core
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: core_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - core-db-data:/var/lib/postgresql/data
+
+  business-db:
+    image: postgres:15
+    container_name: business-db
+    environment:
+      POSTGRES_USER: business
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: business_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - business-db-data:/var/lib/postgresql/data
+
+  core-service:
+    build:
+      context: .
+      dockerfile: packages/core-service/Dockerfile
+    container_name: core-service
+    ports:
+      - "3001:3001"
+    env_file:
+      - .env
+    depends_on:
+      - core-db
+
+  business-service:
+    build:
+      context: .
+      dockerfile: packages/business-service/Dockerfile
+    container_name: business-service
+    ports:
+      - "3002:3002"
+    env_file:
+      - .env
+    depends_on:
+      - business-db
+      - core-service
+
+  gateway-service:
+    build:
+      context: .
+      dockerfile: packages/gateway-service/Dockerfile
+    container_name: gateway-service
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    depends_on:
+      - core-service
+      - business-service
+
+volumes:
+  core-db-data:
+  business-db-data:

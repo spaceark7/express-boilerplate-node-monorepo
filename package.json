@@ -1,0 +1,42 @@
+{
+  "name": "express-boilerplate-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "This is Express Monorepo boilerplate ",
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "shared"
+  ],
+  "scripts": {
+    "clean": "rm -rf packages/core-service/dist packages/business-service/dist packages/gateway-service/dist shared/dist",
+    "build:core": "npm run build --workspace=packages/core-service",
+    "build:business": "npm run build --workspace=packages/business-service",
+    "build:gateway": "npm run build --workspace=packages/gateway-service",
+    "build:shared": "npm run build --workspace=shared",
+    "build:all": "npm run build:shared && npm run build:core && npm run build:business && npm run build:gateway",
+    "dev:core": "npm run dev --workspace=packages/core-service",
+    "dev:business": "npm run dev --workspace=packages/business-service",
+    "dev:gateway": "npm run dev --workspace=packages/gateway-service",
+    "dev:all": "concurrently \"npm run dev:core\" \"npm run dev:business\" \"npm run dev:gateway\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spaceark7/express-boilerplate-node-monorepo.git"
+  },
+  "keywords": [
+    "Express"
+  ],
+  "author": "Hasbi Assidiq",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/spaceark7/express-boilerplate-node-monorepo/issues"
+  },
+  "homepage": "https://github.com/spaceark7/express-boilerplate-node-monorepo#readme",
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "concurrently": "^9.2.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  }
+}
