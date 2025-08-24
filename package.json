@@ -8,6 +8,9 @@
     "packages/*",
     "shared"
   ],
+  "imports": {
+    "#/*": "./*"
+  },
   "scripts": {
     "clean": "rm -rf packages/core-service/dist packages/business-service/dist packages/gateway-service/dist shared/dist",
     "build:core": "npm run build --workspace=packages/core-service",
@@ -36,7 +39,6 @@
   "devDependencies": {
     "@types/node": "^24.3.0",
     "concurrently": "^9.2.0",
-    "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
   }
 }

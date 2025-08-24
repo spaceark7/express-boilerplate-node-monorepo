@@ -3,19 +3,17 @@
     // Environment Settings
     "target": "ES2022",
     "module": "ES2022",
-    "moduleResolution": "node",
-    "esModuleInterop": true,
+    "moduleResolution": "bundler",
+    "esModuleInterop": true, // Add this flag
+    "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "paths": {
       "shared": [
         "shared/src"
       ]
     },
-    "outDir": "dist",
-    // Output Settings
-    "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
+    "rootDir": ".",
+    "outDir": "./dist",
     // Type Checking
     "strict": true,
     "noUncheckedIndexedAccess": true,
@@ -25,5 +23,9 @@
     "isolatedModules": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
-  }
+  },
+  "include": [
+    "packages/**/*",
+    "shared/**/*"
+  ]
 }
