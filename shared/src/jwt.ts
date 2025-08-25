@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-const signToken = (userId: string, email: string, groupId: number) => {
+const signToken = (userId: number, email: string, groupId: number) => {
   const payload = { userId, email, groupId };
   return jwt.sign(payload, process.env.JWT_SECRET as string, { expiresIn: '1h' });
 };
