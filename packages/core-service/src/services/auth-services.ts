@@ -1,10 +1,10 @@
 import bcrypt from 'bcrypt';
 import prismaClient from "packages/core-service/src/app/config/database";
-import type { TSysUserRegister } from "packages/core-service/src/models/user-models";
+import { toUserResponse, type TSysUserLogin, type TSysUserRegister } from "packages/core-service/src/models/user-models";
 import { GroupService } from "packages/core-service/src/services/group-services";
 import { EUserGroup } from "packages/core-service/src/types/enum";
 import { UserValidation } from "packages/core-service/src/validations/user-validation";
-import { ResponseError, Validation } from "shared";
+import { ResponseError, signToken, Validation } from "shared";
 
 export class AuthService {
   static async register(userData: TSysUserRegister) {
@@ -52,5 +52,26 @@ export class AuthService {
     });
 
     return newUser;
+  }
+  static async login(userData: TSysUserLogin) {
+    const requestData = await Validation.validate(UserValidation.USER_LOGIN_SCHEMA, userData);
+
+    const user = await prismaClient.user.findUnique({
+      where: {
+        email: requestData.email
+      }
+    });
+
+    if (!user) {
+      throw new ResponseError(401, "Invalid email or password");
+    }
+
+    const isPasswordValid = await bcrypt.compare(requestData.password, user.password);
+    if (!isPasswordValid) {
+      throw new ResponseError(401, "Invalid email or password");
+    }
+
+    const accessToken = signToken(user.id, user.email, user.groupId);
+    return { user: toUserResponse(user), accessToken };
   }
 }

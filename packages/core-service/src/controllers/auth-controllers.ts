@@ -13,4 +13,13 @@ export class AuthController {
       next(error);
     }
   }
+
+  static async login(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { user, accessToken } = await AuthService.login(req.body);
+      res.status(200).json(ResponseDTO.format({ data: { user, accessToken }, instanceName: AuthController.instanceName, status: HTTP_RESPONSE_STATUS.OK, method: HTTP_METHOD.POST }));
+    } catch (error) {
+      next(error);
+    }
+  }
 }

@@ -4,3 +4,4 @@ import { AuthController } from "packages/core-service/src/controllers/auth-contr
 export const authRoutes = Router();
 
 authRoutes.post('/auth/register', AuthController.register);
+authRoutes.post('/auth/login', AuthController.login);
