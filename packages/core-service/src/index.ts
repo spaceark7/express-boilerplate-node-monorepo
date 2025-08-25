@@ -1,4 +1,4 @@
-import { webServer } from "./server";
+import { webServer } from "./app/server";
 
 const PORT = process.env.APP_PORT || 3000;
 
