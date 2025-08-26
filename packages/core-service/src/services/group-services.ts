@@ -2,19 +2,29 @@ import prismaClient from "packages/core-service/src/app/config/database";
 import { ResponseError } from "shared";
 
 export class GroupService {
-  static async createGroup(groupData: any) {
+  static async create(groupData: any) {
     // Group creation logic here
   }
 
-  static async getGroupById(groupId: string) {
-    // Get group by ID logic here
+  static async findMany() {
+    // Get all groups logic here
+    return await prismaClient.group.findMany();
   }
 
-  static async updateGroup(groupId: string, groupData: any) {
+  static async findById(groupId: number) {
+    // Get group by ID logic here
+    return await prismaClient.group.findUnique({
+      where: {
+        id: groupId
+      }
+    });
+  }
+
+  static async updateOne(groupId: number, groupData: any) {
     // Update group logic here
   }
 
-  static async deleteGroup(groupId: string) {
+  static async deleteOne(groupId: number) {
     // Delete group logic here
   }
 

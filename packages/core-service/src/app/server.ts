@@ -2,6 +2,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import { errorMiddleware } from 'packages/core-service/src/middleware/error-middleware'
 import { authRoutes } from 'packages/core-service/src/routes/auth-routes'
+import { menuRoutes } from 'packages/core-service/src/routes/menu-routes'
 
 dotenv.config()
 
@@ -12,6 +13,7 @@ webServer.use(express.json());
 
 //#region Routes
 webServer.use('/api/v1', authRoutes);
+webServer.use('/api/v1', menuRoutes);
 //#endregion Routes
 
 

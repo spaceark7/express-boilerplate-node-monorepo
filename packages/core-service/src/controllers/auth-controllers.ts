@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from "express";
 import { AuthService } from "packages/core-service/src/services/auth-services";
-import { ResponseDTO } from "shared";
+import { ResponseDTO, ResponseError, verifyToken } from "shared";
 import { HTTP_METHOD, HTTP_RESPONSE_STATUS } from "shared/src/types/internal-response";
 
 export class AuthController {
@@ -18,6 +18,22 @@ export class AuthController {
     try {
       const { user, accessToken } = await AuthService.login(req.body);
       res.status(200).json(ResponseDTO.format({ data: { user, accessToken }, instanceName: AuthController.instanceName, status: HTTP_RESPONSE_STATUS.OK, method: HTTP_METHOD.POST }));
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async verify(req: Request, res: Response, next: NextFunction) {
+    try {
+      const token = req.get('Authorization')?.replace('Bearer ', '');
+      if (!token) {
+        throw new ResponseError(401, "Unauthorized");
+      }
+      const decoded = verifyToken(token);
+      res.status(200).json({
+        valid: !!decoded,
+        user: decoded
+      })
     } catch (error) {
       next(error);
     }
