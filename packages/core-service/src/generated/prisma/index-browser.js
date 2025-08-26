@@ -165,6 +165,7 @@ exports.Prisma.MenuScalarFieldEnum = {
   description: 'description',
   name: 'name',
   label: 'label',
+  icon: 'icon',
   path: 'path',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',

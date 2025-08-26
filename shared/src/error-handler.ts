@@ -5,7 +5,8 @@ import { ValidationError } from "yup";
 
 export const errorHandler = (error: Error) => {
   if (error instanceof ValidationError) {
-    const messages = error.inner.map(e => e.message);
+    console.log('Validation error occurred:', error.errors);
+    const messages = error.errors.map(e => e);
     return { status: HTTP_RESPONSE_STATUS.BAD_REQUEST, output: ResponseDTO.error(messages, 'Validation') };
   } else if (error instanceof ResponseError) {
     return { status: error.status, output: ResponseDTO.error(error.message, 'Request') };

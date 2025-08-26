@@ -6260,6 +6260,7 @@ export namespace Prisma {
     description: string | null
     name: string | null
     label: string | null
+    icon: string | null
     path: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -6273,6 +6274,7 @@ export namespace Prisma {
     description: string | null
     name: string | null
     label: string | null
+    icon: string | null
     path: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -6286,6 +6288,7 @@ export namespace Prisma {
     description: number
     name: number
     label: number
+    icon: number
     path: number
     createdAt: number
     updatedAt: number
@@ -6311,6 +6314,7 @@ export namespace Prisma {
     description?: true
     name?: true
     label?: true
+    icon?: true
     path?: true
     createdAt?: true
     updatedAt?: true
@@ -6324,6 +6328,7 @@ export namespace Prisma {
     description?: true
     name?: true
     label?: true
+    icon?: true
     path?: true
     createdAt?: true
     updatedAt?: true
@@ -6337,6 +6342,7 @@ export namespace Prisma {
     description?: true
     name?: true
     label?: true
+    icon?: true
     path?: true
     createdAt?: true
     updatedAt?: true
@@ -6437,6 +6443,7 @@ export namespace Prisma {
     description: string | null
     name: string
     label: string
+    icon: string | null
     path: string
     createdAt: Date
     updatedAt: Date
@@ -6469,6 +6476,7 @@ export namespace Prisma {
     description?: boolean
     name?: boolean
     label?: boolean
+    icon?: boolean
     path?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6487,6 +6495,7 @@ export namespace Prisma {
     description?: boolean
     name?: boolean
     label?: boolean
+    icon?: boolean
     path?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6501,6 +6510,7 @@ export namespace Prisma {
     description?: boolean
     name?: boolean
     label?: boolean
+    icon?: boolean
     path?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6515,6 +6525,7 @@ export namespace Prisma {
     description?: boolean
     name?: boolean
     label?: boolean
+    icon?: boolean
     path?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6522,7 +6533,7 @@ export namespace Prisma {
     deletedBy?: boolean
   }
 
-  export type MenuOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "parentId" | "description" | "name" | "label" | "path" | "createdAt" | "updatedAt" | "deletedAt" | "deletedBy", ExtArgs["result"]["menu"]>
+  export type MenuOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "parentId" | "description" | "name" | "label" | "icon" | "path" | "createdAt" | "updatedAt" | "deletedAt" | "deletedBy", ExtArgs["result"]["menu"]>
   export type MenuInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     parent?: boolean | Menu$parentArgs<ExtArgs>
     children?: boolean | Menu$childrenArgs<ExtArgs>
@@ -6551,6 +6562,7 @@ export namespace Prisma {
       description: string | null
       name: string
       label: string
+      icon: string | null
       path: string
       createdAt: Date
       updatedAt: Date
@@ -6988,6 +7000,7 @@ export namespace Prisma {
     readonly description: FieldRef<"Menu", 'String'>
     readonly name: FieldRef<"Menu", 'String'>
     readonly label: FieldRef<"Menu", 'String'>
+    readonly icon: FieldRef<"Menu", 'String'>
     readonly path: FieldRef<"Menu", 'String'>
     readonly createdAt: FieldRef<"Menu", 'DateTime'>
     readonly updatedAt: FieldRef<"Menu", 'DateTime'>
@@ -10839,6 +10852,7 @@ export namespace Prisma {
     description: 'description',
     name: 'name',
     label: 'label',
+    icon: 'icon',
     path: 'path',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
@@ -11256,6 +11270,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"Menu"> | string | null
     name?: StringFilter<"Menu"> | string
     label?: StringFilter<"Menu"> | string
+    icon?: StringNullableFilter<"Menu"> | string | null
     path?: StringFilter<"Menu"> | string
     createdAt?: DateTimeFilter<"Menu"> | Date | string
     updatedAt?: DateTimeFilter<"Menu"> | Date | string
@@ -11273,6 +11288,7 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     name?: SortOrder
     label?: SortOrder
+    icon?: SortOrderInput | SortOrder
     path?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -11293,6 +11309,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"Menu"> | string | null
     name?: StringFilter<"Menu"> | string
     label?: StringFilter<"Menu"> | string
+    icon?: StringNullableFilter<"Menu"> | string | null
     path?: StringFilter<"Menu"> | string
     createdAt?: DateTimeFilter<"Menu"> | Date | string
     updatedAt?: DateTimeFilter<"Menu"> | Date | string
@@ -11310,6 +11327,7 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     name?: SortOrder
     label?: SortOrder
+    icon?: SortOrderInput | SortOrder
     path?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -11331,6 +11349,7 @@ export namespace Prisma {
     description?: StringNullableWithAggregatesFilter<"Menu"> | string | null
     name?: StringWithAggregatesFilter<"Menu"> | string
     label?: StringWithAggregatesFilter<"Menu"> | string
+    icon?: StringNullableWithAggregatesFilter<"Menu"> | string | null
     path?: StringWithAggregatesFilter<"Menu"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Menu"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Menu"> | Date | string
@@ -11767,6 +11786,7 @@ export namespace Prisma {
     description?: string | null
     name: string
     label: string
+    icon?: string | null
     path: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -11784,6 +11804,7 @@ export namespace Prisma {
     description?: string | null
     name: string
     label: string
+    icon?: string | null
     path: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -11798,6 +11819,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
     path?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11815,6 +11837,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
     path?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11831,6 +11854,7 @@ export namespace Prisma {
     description?: string | null
     name: string
     label: string
+    icon?: string | null
     path: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -11842,6 +11866,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
     path?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11855,6 +11880,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
     path?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12402,6 +12428,7 @@ export namespace Prisma {
     description?: SortOrder
     name?: SortOrder
     label?: SortOrder
+    icon?: SortOrder
     path?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -12420,6 +12447,7 @@ export namespace Prisma {
     description?: SortOrder
     name?: SortOrder
     label?: SortOrder
+    icon?: SortOrder
     path?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -12433,6 +12461,7 @@ export namespace Prisma {
     description?: SortOrder
     name?: SortOrder
     label?: SortOrder
+    icon?: SortOrder
     path?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -13607,6 +13636,7 @@ export namespace Prisma {
     description?: string | null
     name: string
     label: string
+    icon?: string | null
     path: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13623,6 +13653,7 @@ export namespace Prisma {
     description?: string | null
     name: string
     label: string
+    icon?: string | null
     path: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13701,6 +13732,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
     path?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13717,6 +13749,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
     path?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13755,6 +13788,7 @@ export namespace Prisma {
     description?: string | null
     name: string
     label: string
+    icon?: string | null
     path: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13771,6 +13805,7 @@ export namespace Prisma {
     description?: string | null
     name: string
     label: string
+    icon?: string | null
     path: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13789,6 +13824,7 @@ export namespace Prisma {
     description?: string | null
     name: string
     label: string
+    icon?: string | null
     path: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13804,6 +13840,7 @@ export namespace Prisma {
     description?: string | null
     name: string
     label: string
+    icon?: string | null
     path: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13883,6 +13920,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
     path?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13899,6 +13937,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
     path?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13933,6 +13972,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"Menu"> | string | null
     name?: StringFilter<"Menu"> | string
     label?: StringFilter<"Menu"> | string
+    icon?: StringNullableFilter<"Menu"> | string | null
     path?: StringFilter<"Menu"> | string
     createdAt?: DateTimeFilter<"Menu"> | Date | string
     updatedAt?: DateTimeFilter<"Menu"> | Date | string
@@ -14055,6 +14095,7 @@ export namespace Prisma {
     description?: string | null
     name: string
     label: string
+    icon?: string | null
     path: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -14071,6 +14112,7 @@ export namespace Prisma {
     description?: string | null
     name: string
     label: string
+    icon?: string | null
     path: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -14118,6 +14160,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
     path?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14134,6 +14177,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
     path?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14349,6 +14393,7 @@ export namespace Prisma {
     description?: string | null
     name: string
     label: string
+    icon?: string | null
     path: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -14372,6 +14417,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
     path?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14387,6 +14433,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
     path?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14402,6 +14449,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     label?: StringFieldUpdateOperationsInput | string
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
     path?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

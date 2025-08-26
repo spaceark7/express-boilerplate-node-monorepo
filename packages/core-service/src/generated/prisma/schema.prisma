@@ -82,6 +82,7 @@ model Menu {
   description String?           @db.VarChar(80)
   name        String            @db.VarChar(50)
   label       String            @db.VarChar(50)
+  icon        String?           @db.VarChar(50)
   path        String            @db.VarChar(100)
   acls        MenuAccessLevel[]
   groups      MenuGroup[]
@@ -123,7 +124,7 @@ model MenuGroupAccess {
   accessLevel   AccessLevel @relation(fields: [accessLevelId], references: [id], onDelete: Cascade)
 
   @@unique([menuGroupId, accessLevelId]) // Prevent duplicates
-  @@map("MenuGroupAccess")
+  @@map("SysMenuGroupAccess")
 }
 
 //#endregion Menu
