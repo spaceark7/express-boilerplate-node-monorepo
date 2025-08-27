@@ -155,8 +155,7 @@ exports.Prisma.MenuGroupScalarFieldEnum = {
   id: 'id',
   groupId: 'groupId',
   menuId: 'menuId',
-  isActive: 'isActive',
-  orderNumber: 'orderNumber'
+  isActive: 'isActive'
 };
 
 exports.Prisma.MenuScalarFieldEnum = {
@@ -167,6 +166,7 @@ exports.Prisma.MenuScalarFieldEnum = {
   label: 'label',
   icon: 'icon',
   path: 'path',
+  orderNumber: 'orderNumber',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt',

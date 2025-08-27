@@ -63,7 +63,6 @@ model MenuGroup {
   groupId   Int
   menuId    Int
   isActive  Boolean  @default(false)
-  orderNumber Int    @default(0)
   group     Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
   menu      Menu     @relation(fields: [menuId], references: [id], onDelete: NoAction)
   access    MenuGroupAccess[]
@@ -83,6 +82,7 @@ model Menu {
   icon          String?        @db.VarChar(50)
   path          String        @db.VarChar(100)
   acls          MenuAccessLevel[]
+  orderNumber   Int?          
   groups        MenuGroup[]  
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt

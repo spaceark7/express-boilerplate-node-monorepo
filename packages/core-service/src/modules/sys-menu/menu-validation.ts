@@ -10,7 +10,9 @@ export class MenuValidation {
     icon: yup.string().max(50).optional(),
     parentId: yup.number().integer().optional().nullable(),
     acls: yup.array().of(yup.string().max(50)).optional().nullable(),
-    isActive: yup.boolean().optional().nullable()
+    isActive: yup.boolean().optional().nullable(),
+    orderNumber: yup.number().integer().nullable()
+
   });
 
   static readonly MENU_UPDATE_SCHEMA = yup.object<TSysMenuUpdate>().shape({

@@ -5106,14 +5106,12 @@ export namespace Prisma {
     id: number | null
     groupId: number | null
     menuId: number | null
-    orderNumber: number | null
   }
 
   export type MenuGroupSumAggregateOutputType = {
     id: number | null
     groupId: number | null
     menuId: number | null
-    orderNumber: number | null
   }
 
   export type MenuGroupMinAggregateOutputType = {
@@ -5121,7 +5119,6 @@ export namespace Prisma {
     groupId: number | null
     menuId: number | null
     isActive: boolean | null
-    orderNumber: number | null
   }
 
   export type MenuGroupMaxAggregateOutputType = {
@@ -5129,7 +5126,6 @@ export namespace Prisma {
     groupId: number | null
     menuId: number | null
     isActive: boolean | null
-    orderNumber: number | null
   }
 
   export type MenuGroupCountAggregateOutputType = {
@@ -5137,7 +5133,6 @@ export namespace Prisma {
     groupId: number
     menuId: number
     isActive: number
-    orderNumber: number
     _all: number
   }
 
@@ -5146,14 +5141,12 @@ export namespace Prisma {
     id?: true
     groupId?: true
     menuId?: true
-    orderNumber?: true
   }
 
   export type MenuGroupSumAggregateInputType = {
     id?: true
     groupId?: true
     menuId?: true
-    orderNumber?: true
   }
 
   export type MenuGroupMinAggregateInputType = {
@@ -5161,7 +5154,6 @@ export namespace Prisma {
     groupId?: true
     menuId?: true
     isActive?: true
-    orderNumber?: true
   }
 
   export type MenuGroupMaxAggregateInputType = {
@@ -5169,7 +5161,6 @@ export namespace Prisma {
     groupId?: true
     menuId?: true
     isActive?: true
-    orderNumber?: true
   }
 
   export type MenuGroupCountAggregateInputType = {
@@ -5177,7 +5168,6 @@ export namespace Prisma {
     groupId?: true
     menuId?: true
     isActive?: true
-    orderNumber?: true
     _all?: true
   }
 
@@ -5272,7 +5262,6 @@ export namespace Prisma {
     groupId: number
     menuId: number
     isActive: boolean
-    orderNumber: number
     _count: MenuGroupCountAggregateOutputType | null
     _avg: MenuGroupAvgAggregateOutputType | null
     _sum: MenuGroupSumAggregateOutputType | null
@@ -5299,7 +5288,6 @@ export namespace Prisma {
     groupId?: boolean
     menuId?: boolean
     isActive?: boolean
-    orderNumber?: boolean
     group?: boolean | GroupDefaultArgs<ExtArgs>
     menu?: boolean | MenuDefaultArgs<ExtArgs>
     access?: boolean | MenuGroup$accessArgs<ExtArgs>
@@ -5311,7 +5299,6 @@ export namespace Prisma {
     groupId?: boolean
     menuId?: boolean
     isActive?: boolean
-    orderNumber?: boolean
     group?: boolean | GroupDefaultArgs<ExtArgs>
     menu?: boolean | MenuDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["menuGroup"]>
@@ -5321,7 +5308,6 @@ export namespace Prisma {
     groupId?: boolean
     menuId?: boolean
     isActive?: boolean
-    orderNumber?: boolean
     group?: boolean | GroupDefaultArgs<ExtArgs>
     menu?: boolean | MenuDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["menuGroup"]>
@@ -5331,10 +5317,9 @@ export namespace Prisma {
     groupId?: boolean
     menuId?: boolean
     isActive?: boolean
-    orderNumber?: boolean
   }
 
-  export type MenuGroupOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "groupId" | "menuId" | "isActive" | "orderNumber", ExtArgs["result"]["menuGroup"]>
+  export type MenuGroupOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "groupId" | "menuId" | "isActive", ExtArgs["result"]["menuGroup"]>
   export type MenuGroupInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     group?: boolean | GroupDefaultArgs<ExtArgs>
     menu?: boolean | MenuDefaultArgs<ExtArgs>
@@ -5362,7 +5347,6 @@ export namespace Prisma {
       groupId: number
       menuId: number
       isActive: boolean
-      orderNumber: number
     }, ExtArgs["result"]["menuGroup"]>
     composites: {}
   }
@@ -5793,7 +5777,6 @@ export namespace Prisma {
     readonly groupId: FieldRef<"MenuGroup", 'Int'>
     readonly menuId: FieldRef<"MenuGroup", 'Int'>
     readonly isActive: FieldRef<"MenuGroup", 'Boolean'>
-    readonly orderNumber: FieldRef<"MenuGroup", 'Int'>
   }
     
 
@@ -6247,11 +6230,13 @@ export namespace Prisma {
   export type MenuAvgAggregateOutputType = {
     id: number | null
     parentId: number | null
+    orderNumber: number | null
   }
 
   export type MenuSumAggregateOutputType = {
     id: number | null
     parentId: number | null
+    orderNumber: number | null
   }
 
   export type MenuMinAggregateOutputType = {
@@ -6262,6 +6247,7 @@ export namespace Prisma {
     label: string | null
     icon: string | null
     path: string | null
+    orderNumber: number | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
@@ -6276,6 +6262,7 @@ export namespace Prisma {
     label: string | null
     icon: string | null
     path: string | null
+    orderNumber: number | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
@@ -6290,6 +6277,7 @@ export namespace Prisma {
     label: number
     icon: number
     path: number
+    orderNumber: number
     createdAt: number
     updatedAt: number
     deletedAt: number
@@ -6301,11 +6289,13 @@ export namespace Prisma {
   export type MenuAvgAggregateInputType = {
     id?: true
     parentId?: true
+    orderNumber?: true
   }
 
   export type MenuSumAggregateInputType = {
     id?: true
     parentId?: true
+    orderNumber?: true
   }
 
   export type MenuMinAggregateInputType = {
@@ -6316,6 +6306,7 @@ export namespace Prisma {
     label?: true
     icon?: true
     path?: true
+    orderNumber?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
@@ -6330,6 +6321,7 @@ export namespace Prisma {
     label?: true
     icon?: true
     path?: true
+    orderNumber?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
@@ -6344,6 +6336,7 @@ export namespace Prisma {
     label?: true
     icon?: true
     path?: true
+    orderNumber?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
@@ -6445,6 +6438,7 @@ export namespace Prisma {
     label: string
     icon: string | null
     path: string
+    orderNumber: number | null
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -6478,6 +6472,7 @@ export namespace Prisma {
     label?: boolean
     icon?: boolean
     path?: boolean
+    orderNumber?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
@@ -6497,6 +6492,7 @@ export namespace Prisma {
     label?: boolean
     icon?: boolean
     path?: boolean
+    orderNumber?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
@@ -6512,6 +6508,7 @@ export namespace Prisma {
     label?: boolean
     icon?: boolean
     path?: boolean
+    orderNumber?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
@@ -6527,13 +6524,14 @@ export namespace Prisma {
     label?: boolean
     icon?: boolean
     path?: boolean
+    orderNumber?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
     deletedBy?: boolean
   }
 
-  export type MenuOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "parentId" | "description" | "name" | "label" | "icon" | "path" | "createdAt" | "updatedAt" | "deletedAt" | "deletedBy", ExtArgs["result"]["menu"]>
+  export type MenuOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "parentId" | "description" | "name" | "label" | "icon" | "path" | "orderNumber" | "createdAt" | "updatedAt" | "deletedAt" | "deletedBy", ExtArgs["result"]["menu"]>
   export type MenuInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     parent?: boolean | Menu$parentArgs<ExtArgs>
     children?: boolean | Menu$childrenArgs<ExtArgs>
@@ -6564,6 +6562,7 @@ export namespace Prisma {
       label: string
       icon: string | null
       path: string
+      orderNumber: number | null
       createdAt: Date
       updatedAt: Date
       deletedAt: Date | null
@@ -7002,6 +7001,7 @@ export namespace Prisma {
     readonly label: FieldRef<"Menu", 'String'>
     readonly icon: FieldRef<"Menu", 'String'>
     readonly path: FieldRef<"Menu", 'String'>
+    readonly orderNumber: FieldRef<"Menu", 'Int'>
     readonly createdAt: FieldRef<"Menu", 'DateTime'>
     readonly updatedAt: FieldRef<"Menu", 'DateTime'>
     readonly deletedAt: FieldRef<"Menu", 'DateTime'>
@@ -10839,8 +10839,7 @@ export namespace Prisma {
     id: 'id',
     groupId: 'groupId',
     menuId: 'menuId',
-    isActive: 'isActive',
-    orderNumber: 'orderNumber'
+    isActive: 'isActive'
   };
 
   export type MenuGroupScalarFieldEnum = (typeof MenuGroupScalarFieldEnum)[keyof typeof MenuGroupScalarFieldEnum]
@@ -10854,6 +10853,7 @@ export namespace Prisma {
     label: 'label',
     icon: 'icon',
     path: 'path',
+    orderNumber: 'orderNumber',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     deletedAt: 'deletedAt',
@@ -11205,7 +11205,6 @@ export namespace Prisma {
     groupId?: IntFilter<"MenuGroup"> | number
     menuId?: IntFilter<"MenuGroup"> | number
     isActive?: BoolFilter<"MenuGroup"> | boolean
-    orderNumber?: IntFilter<"MenuGroup"> | number
     group?: XOR<GroupScalarRelationFilter, GroupWhereInput>
     menu?: XOR<MenuScalarRelationFilter, MenuWhereInput>
     access?: MenuGroupAccessListRelationFilter
@@ -11216,7 +11215,6 @@ export namespace Prisma {
     groupId?: SortOrder
     menuId?: SortOrder
     isActive?: SortOrder
-    orderNumber?: SortOrder
     group?: GroupOrderByWithRelationInput
     menu?: MenuOrderByWithRelationInput
     access?: MenuGroupAccessOrderByRelationAggregateInput
@@ -11231,7 +11229,6 @@ export namespace Prisma {
     groupId?: IntFilter<"MenuGroup"> | number
     menuId?: IntFilter<"MenuGroup"> | number
     isActive?: BoolFilter<"MenuGroup"> | boolean
-    orderNumber?: IntFilter<"MenuGroup"> | number
     group?: XOR<GroupScalarRelationFilter, GroupWhereInput>
     menu?: XOR<MenuScalarRelationFilter, MenuWhereInput>
     access?: MenuGroupAccessListRelationFilter
@@ -11242,7 +11239,6 @@ export namespace Prisma {
     groupId?: SortOrder
     menuId?: SortOrder
     isActive?: SortOrder
-    orderNumber?: SortOrder
     _count?: MenuGroupCountOrderByAggregateInput
     _avg?: MenuGroupAvgOrderByAggregateInput
     _max?: MenuGroupMaxOrderByAggregateInput
@@ -11258,7 +11254,6 @@ export namespace Prisma {
     groupId?: IntWithAggregatesFilter<"MenuGroup"> | number
     menuId?: IntWithAggregatesFilter<"MenuGroup"> | number
     isActive?: BoolWithAggregatesFilter<"MenuGroup"> | boolean
-    orderNumber?: IntWithAggregatesFilter<"MenuGroup"> | number
   }
 
   export type MenuWhereInput = {
@@ -11272,6 +11267,7 @@ export namespace Prisma {
     label?: StringFilter<"Menu"> | string
     icon?: StringNullableFilter<"Menu"> | string | null
     path?: StringFilter<"Menu"> | string
+    orderNumber?: IntNullableFilter<"Menu"> | number | null
     createdAt?: DateTimeFilter<"Menu"> | Date | string
     updatedAt?: DateTimeFilter<"Menu"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Menu"> | Date | string | null
@@ -11290,6 +11286,7 @@ export namespace Prisma {
     label?: SortOrder
     icon?: SortOrderInput | SortOrder
     path?: SortOrder
+    orderNumber?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
@@ -11311,6 +11308,7 @@ export namespace Prisma {
     label?: StringFilter<"Menu"> | string
     icon?: StringNullableFilter<"Menu"> | string | null
     path?: StringFilter<"Menu"> | string
+    orderNumber?: IntNullableFilter<"Menu"> | number | null
     createdAt?: DateTimeFilter<"Menu"> | Date | string
     updatedAt?: DateTimeFilter<"Menu"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Menu"> | Date | string | null
@@ -11329,6 +11327,7 @@ export namespace Prisma {
     label?: SortOrder
     icon?: SortOrderInput | SortOrder
     path?: SortOrder
+    orderNumber?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
@@ -11351,6 +11350,7 @@ export namespace Prisma {
     label?: StringWithAggregatesFilter<"Menu"> | string
     icon?: StringNullableWithAggregatesFilter<"Menu"> | string | null
     path?: StringWithAggregatesFilter<"Menu"> | string
+    orderNumber?: IntNullableWithAggregatesFilter<"Menu"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"Menu"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Menu"> | Date | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"Menu"> | Date | string | null
@@ -11729,7 +11729,6 @@ export namespace Prisma {
 
   export type MenuGroupCreateInput = {
     isActive?: boolean
-    orderNumber?: number
     group: GroupCreateNestedOneWithoutMenusInput
     menu: MenuCreateNestedOneWithoutGroupsInput
     access?: MenuGroupAccessCreateNestedManyWithoutMenuGroupInput
@@ -11740,13 +11739,11 @@ export namespace Prisma {
     groupId: number
     menuId: number
     isActive?: boolean
-    orderNumber?: number
     access?: MenuGroupAccessUncheckedCreateNestedManyWithoutMenuGroupInput
   }
 
   export type MenuGroupUpdateInput = {
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    orderNumber?: IntFieldUpdateOperationsInput | number
     group?: GroupUpdateOneRequiredWithoutMenusNestedInput
     menu?: MenuUpdateOneRequiredWithoutGroupsNestedInput
     access?: MenuGroupAccessUpdateManyWithoutMenuGroupNestedInput
@@ -11757,7 +11754,6 @@ export namespace Prisma {
     groupId?: IntFieldUpdateOperationsInput | number
     menuId?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    orderNumber?: IntFieldUpdateOperationsInput | number
     access?: MenuGroupAccessUncheckedUpdateManyWithoutMenuGroupNestedInput
   }
 
@@ -11766,12 +11762,10 @@ export namespace Prisma {
     groupId: number
     menuId: number
     isActive?: boolean
-    orderNumber?: number
   }
 
   export type MenuGroupUpdateManyMutationInput = {
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    orderNumber?: IntFieldUpdateOperationsInput | number
   }
 
   export type MenuGroupUncheckedUpdateManyInput = {
@@ -11779,7 +11773,6 @@ export namespace Prisma {
     groupId?: IntFieldUpdateOperationsInput | number
     menuId?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    orderNumber?: IntFieldUpdateOperationsInput | number
   }
 
   export type MenuCreateInput = {
@@ -11788,6 +11781,7 @@ export namespace Prisma {
     label: string
     icon?: string | null
     path: string
+    orderNumber?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -11806,6 +11800,7 @@ export namespace Prisma {
     label: string
     icon?: string | null
     path: string
+    orderNumber?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -11821,6 +11816,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
     path?: StringFieldUpdateOperationsInput | string
+    orderNumber?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11839,6 +11835,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
     path?: StringFieldUpdateOperationsInput | string
+    orderNumber?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11856,6 +11853,7 @@ export namespace Prisma {
     label: string
     icon?: string | null
     path: string
+    orderNumber?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -11868,6 +11866,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
     path?: StringFieldUpdateOperationsInput | string
+    orderNumber?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11882,6 +11881,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
     path?: StringFieldUpdateOperationsInput | string
+    orderNumber?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -12345,14 +12345,12 @@ export namespace Prisma {
     groupId?: SortOrder
     menuId?: SortOrder
     isActive?: SortOrder
-    orderNumber?: SortOrder
   }
 
   export type MenuGroupAvgOrderByAggregateInput = {
     id?: SortOrder
     groupId?: SortOrder
     menuId?: SortOrder
-    orderNumber?: SortOrder
   }
 
   export type MenuGroupMaxOrderByAggregateInput = {
@@ -12360,7 +12358,6 @@ export namespace Prisma {
     groupId?: SortOrder
     menuId?: SortOrder
     isActive?: SortOrder
-    orderNumber?: SortOrder
   }
 
   export type MenuGroupMinOrderByAggregateInput = {
@@ -12368,14 +12365,12 @@ export namespace Prisma {
     groupId?: SortOrder
     menuId?: SortOrder
     isActive?: SortOrder
-    orderNumber?: SortOrder
   }
 
   export type MenuGroupSumOrderByAggregateInput = {
     id?: SortOrder
     groupId?: SortOrder
     menuId?: SortOrder
-    orderNumber?: SortOrder
   }
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -12430,6 +12425,7 @@ export namespace Prisma {
     label?: SortOrder
     icon?: SortOrder
     path?: SortOrder
+    orderNumber?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
@@ -12439,6 +12435,7 @@ export namespace Prisma {
   export type MenuAvgOrderByAggregateInput = {
     id?: SortOrder
     parentId?: SortOrder
+    orderNumber?: SortOrder
   }
 
   export type MenuMaxOrderByAggregateInput = {
@@ -12449,6 +12446,7 @@ export namespace Prisma {
     label?: SortOrder
     icon?: SortOrder
     path?: SortOrder
+    orderNumber?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
@@ -12463,6 +12461,7 @@ export namespace Prisma {
     label?: SortOrder
     icon?: SortOrder
     path?: SortOrder
+    orderNumber?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
@@ -12472,6 +12471,7 @@ export namespace Prisma {
   export type MenuSumOrderByAggregateInput = {
     id?: SortOrder
     parentId?: SortOrder
+    orderNumber?: SortOrder
   }
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -12886,6 +12886,14 @@ export namespace Prisma {
     connect?: MenuGroupWhereUniqueInput | MenuGroupWhereUniqueInput[]
   }
 
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type MenuUpdateOneWithoutChildrenNestedInput = {
     create?: XOR<MenuCreateWithoutChildrenInput, MenuUncheckedCreateWithoutChildrenInput>
     connectOrCreate?: MenuCreateOrConnectWithoutChildrenInput
@@ -12936,14 +12944,6 @@ export namespace Prisma {
     update?: MenuGroupUpdateWithWhereUniqueWithoutMenuInput | MenuGroupUpdateWithWhereUniqueWithoutMenuInput[]
     updateMany?: MenuGroupUpdateManyWithWhereWithoutMenuInput | MenuGroupUpdateManyWithWhereWithoutMenuInput[]
     deleteMany?: MenuGroupScalarWhereInput | MenuGroupScalarWhereInput[]
-  }
-
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type MenuUncheckedUpdateManyWithoutParentNestedInput = {
@@ -13470,7 +13470,6 @@ export namespace Prisma {
 
   export type MenuGroupCreateWithoutGroupInput = {
     isActive?: boolean
-    orderNumber?: number
     menu: MenuCreateNestedOneWithoutGroupsInput
     access?: MenuGroupAccessCreateNestedManyWithoutMenuGroupInput
   }
@@ -13479,7 +13478,6 @@ export namespace Prisma {
     id?: number
     menuId: number
     isActive?: boolean
-    orderNumber?: number
     access?: MenuGroupAccessUncheckedCreateNestedManyWithoutMenuGroupInput
   }
 
@@ -13547,7 +13545,6 @@ export namespace Prisma {
     groupId?: IntFilter<"MenuGroup"> | number
     menuId?: IntFilter<"MenuGroup"> | number
     isActive?: BoolFilter<"MenuGroup"> | boolean
-    orderNumber?: IntFilter<"MenuGroup"> | number
   }
 
   export type UserCreateWithoutProfileInput = {
@@ -13638,6 +13635,7 @@ export namespace Prisma {
     label: string
     icon?: string | null
     path: string
+    orderNumber?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -13655,6 +13653,7 @@ export namespace Prisma {
     label: string
     icon?: string | null
     path: string
+    orderNumber?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -13734,6 +13733,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
     path?: StringFieldUpdateOperationsInput | string
+    orderNumber?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13751,6 +13751,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
     path?: StringFieldUpdateOperationsInput | string
+    orderNumber?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13790,6 +13791,7 @@ export namespace Prisma {
     label: string
     icon?: string | null
     path: string
+    orderNumber?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -13807,6 +13809,7 @@ export namespace Prisma {
     label: string
     icon?: string | null
     path: string
+    orderNumber?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -13826,6 +13829,7 @@ export namespace Prisma {
     label: string
     icon?: string | null
     path: string
+    orderNumber?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -13842,6 +13846,7 @@ export namespace Prisma {
     label: string
     icon?: string | null
     path: string
+    orderNumber?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -13882,7 +13887,6 @@ export namespace Prisma {
 
   export type MenuGroupCreateWithoutMenuInput = {
     isActive?: boolean
-    orderNumber?: number
     group: GroupCreateNestedOneWithoutMenusInput
     access?: MenuGroupAccessCreateNestedManyWithoutMenuGroupInput
   }
@@ -13891,7 +13895,6 @@ export namespace Prisma {
     id?: number
     groupId: number
     isActive?: boolean
-    orderNumber?: number
     access?: MenuGroupAccessUncheckedCreateNestedManyWithoutMenuGroupInput
   }
 
@@ -13922,6 +13925,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
     path?: StringFieldUpdateOperationsInput | string
+    orderNumber?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13939,6 +13943,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
     path?: StringFieldUpdateOperationsInput | string
+    orderNumber?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13974,6 +13979,7 @@ export namespace Prisma {
     label?: StringFilter<"Menu"> | string
     icon?: StringNullableFilter<"Menu"> | string | null
     path?: StringFilter<"Menu"> | string
+    orderNumber?: IntNullableFilter<"Menu"> | number | null
     createdAt?: DateTimeFilter<"Menu"> | Date | string
     updatedAt?: DateTimeFilter<"Menu"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Menu"> | Date | string | null
@@ -14097,6 +14103,7 @@ export namespace Prisma {
     label: string
     icon?: string | null
     path: string
+    orderNumber?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -14114,6 +14121,7 @@ export namespace Prisma {
     label: string
     icon?: string | null
     path: string
+    orderNumber?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -14162,6 +14170,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
     path?: StringFieldUpdateOperationsInput | string
+    orderNumber?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14179,6 +14188,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
     path?: StringFieldUpdateOperationsInput | string
+    orderNumber?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14213,7 +14223,6 @@ export namespace Prisma {
 
   export type MenuGroupCreateWithoutAccessInput = {
     isActive?: boolean
-    orderNumber?: number
     group: GroupCreateNestedOneWithoutMenusInput
     menu: MenuCreateNestedOneWithoutGroupsInput
   }
@@ -14223,7 +14232,6 @@ export namespace Prisma {
     groupId: number
     menuId: number
     isActive?: boolean
-    orderNumber?: number
   }
 
   export type MenuGroupCreateOrConnectWithoutAccessInput = {
@@ -14262,7 +14270,6 @@ export namespace Prisma {
 
   export type MenuGroupUpdateWithoutAccessInput = {
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    orderNumber?: IntFieldUpdateOperationsInput | number
     group?: GroupUpdateOneRequiredWithoutMenusNestedInput
     menu?: MenuUpdateOneRequiredWithoutGroupsNestedInput
   }
@@ -14272,7 +14279,6 @@ export namespace Prisma {
     groupId?: IntFieldUpdateOperationsInput | number
     menuId?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    orderNumber?: IntFieldUpdateOperationsInput | number
   }
 
   export type AccessLevelUpsertWithoutGroupAccessInput = {
@@ -14313,7 +14319,6 @@ export namespace Prisma {
     id?: number
     menuId: number
     isActive?: boolean
-    orderNumber?: number
   }
 
   export type UserUpdateWithoutGroupInput = {
@@ -14349,7 +14354,6 @@ export namespace Prisma {
 
   export type MenuGroupUpdateWithoutGroupInput = {
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    orderNumber?: IntFieldUpdateOperationsInput | number
     menu?: MenuUpdateOneRequiredWithoutGroupsNestedInput
     access?: MenuGroupAccessUpdateManyWithoutMenuGroupNestedInput
   }
@@ -14358,7 +14362,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     menuId?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    orderNumber?: IntFieldUpdateOperationsInput | number
     access?: MenuGroupAccessUncheckedUpdateManyWithoutMenuGroupNestedInput
   }
 
@@ -14366,7 +14369,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     menuId?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    orderNumber?: IntFieldUpdateOperationsInput | number
   }
 
   export type MenuGroupAccessCreateManyMenuGroupInput = {
@@ -14395,6 +14397,7 @@ export namespace Prisma {
     label: string
     icon?: string | null
     path: string
+    orderNumber?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -14410,7 +14413,6 @@ export namespace Prisma {
     id?: number
     groupId: number
     isActive?: boolean
-    orderNumber?: number
   }
 
   export type MenuUpdateWithoutParentInput = {
@@ -14419,6 +14421,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
     path?: StringFieldUpdateOperationsInput | string
+    orderNumber?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14435,6 +14438,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
     path?: StringFieldUpdateOperationsInput | string
+    orderNumber?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14451,6 +14455,7 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     icon?: NullableStringFieldUpdateOperationsInput | string | null
     path?: StringFieldUpdateOperationsInput | string
+    orderNumber?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -14473,7 +14478,6 @@ export namespace Prisma {
 
   export type MenuGroupUpdateWithoutMenuInput = {
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    orderNumber?: IntFieldUpdateOperationsInput | number
     group?: GroupUpdateOneRequiredWithoutMenusNestedInput
     access?: MenuGroupAccessUpdateManyWithoutMenuGroupNestedInput
   }
@@ -14482,7 +14486,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     groupId?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    orderNumber?: IntFieldUpdateOperationsInput | number
     access?: MenuGroupAccessUncheckedUpdateManyWithoutMenuGroupNestedInput
   }
 
@@ -14490,7 +14493,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     groupId?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    orderNumber?: IntFieldUpdateOperationsInput | number
   }
 
   export type MenuAccessLevelCreateManyAccessLevelInput = {

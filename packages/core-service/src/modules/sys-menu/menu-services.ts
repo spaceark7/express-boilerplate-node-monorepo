@@ -68,13 +68,8 @@ export class MenuService {
  * @returns Transformed menu structure
  */
   private transformMenusForGroup(menus: any[], groupId: number, includeChild = false) {
-    console.log('Transforming menus for group:', groupId);
     return menus.map(menu => {
       // Find the specific group entry for this menu to get isActive status
-      console.log('Finding group entry for menu:', {
-        name: menu.name,
-        groups: menu.groups
-      });
       let groupEntry;
       if (menu.groups) {
         groupEntry = menu.groups.find((g: any) => g.groupId === groupId);
@@ -96,7 +91,7 @@ export class MenuService {
         updatedAt: menu.updatedAt,
         // deletedAt: menu.deletedAt,
         // deletedBy: menu.deletedBy,
-        orderNumber: groupEntry ? groupEntry?.orderNumber : undefined,
+        orderNumber: menu.orderNumber,
         isActive: groupEntry ? groupEntry.isActive : false,
         acls: accessLevels,
         // Transform children recursively if they exist
@@ -196,7 +191,7 @@ export class MenuService {
   }
 
   async create(menuData: TSysMenuCreate) {
-    const { isActive, acls, ...requestData } = await Validation.validate(MenuValidation.MENU_CREATE_SCHEMA, menuData);
+    const { isActive, acls, orderNumber, ...requestData } = await Validation.validate(MenuValidation.MENU_CREATE_SCHEMA, menuData);
     const groupId = this.user?.groupId;
     const isExist = await prismaClient.menu.count({
       where: {
@@ -213,8 +208,37 @@ export class MenuService {
 
     const newMenu = await prismaClient.$transaction(async (tx) => {
       // 1. Create the new menu
+      // check if order number is already used
+      if (orderNumber !== null && orderNumber !== undefined) {
+        const isOrderNumberUsed = await tx.menu.findFirst({
+          where: {
+            orderNumber: orderNumber,
+            parentId: requestData.parentId || null,
+            deletedAt: null
+          }
+        });
+
+        if (isOrderNumberUsed) {
+          throw new ResponseError(400, "Order number is already used");
+        }
+      }
+
+      // Find last menu order number
+      const lastMenu = await tx.menu.findFirst({
+        where: {
+          parentId: requestData.parentId || null,
+          deletedAt: null
+        },
+        orderBy: {
+          orderNumber: 'desc'
+        }
+      });
+
       const newMenu = await tx.menu.create({
-        data: requestData
+        data: {
+          ...requestData,
+          orderNumber: orderNumber && orderNumber !== undefined ? orderNumber : (lastMenu?.orderNumber || 0) + 1
+        }
       });
 
       // 2. Get all active groups
@@ -229,61 +253,13 @@ export class MenuService {
 
       // 3. Create MenuGroup entries for each group with isActive=false by default
       if (activeGroups.length > 0) {
-        const groupMenuData = await Promise.all(activeGroups.map(async group => {
-          let nextOrderNumber = 0;
-
-          if (requestData.parentId === null) {
-            // For parent menus: Find highest orderNumber among parent menus for this specific group
-            const highestOrderParent = await tx.menuGroup.findFirst({
-              where: {
-                groupId: group.id,
-                menu: {
-                  parentId: null,
-                  deletedAt: null
-                }
-              },
-              orderBy: {
-                orderNumber: 'desc'
-              },
-              select: {
-                orderNumber: true
-              }
-            });
-
-            nextOrderNumber = (highestOrderParent?.orderNumber || 0) + 10;
-          } else {
-            // For child menus: Find highest orderNumber among siblings for this specific group
-            const highestOrderSibling = await tx.menuGroup.findFirst({
-              where: {
-                groupId: group.id,
-                menu: {
-                  parentId: requestData.parentId,
-                  deletedAt: null
-                }
-              },
-              orderBy: {
-                orderNumber: 'desc'
-              },
-              select: {
-                orderNumber: true
-              }
-            });
-
-            nextOrderNumber = (highestOrderSibling?.orderNumber || 0) + 10;
-          }
-
-          return {
-            menuId: newMenu.id,
-            groupId: group.id,
-            isActive: groupId && group.id === groupId && isActive !== undefined ? isActive : false,
-            orderNumber: nextOrderNumber
-          };
-        }));
-
-        console.log('Group menu data:', groupMenuData);
 
         await tx.menuGroup.createMany({
-          data: groupMenuData
+          data: activeGroups.map(g => ({
+            menuId: newMenu.id,
+            groupId: g.id,
+            isActive: isActive && g.id === groupId ? isActive : false,
+          }))
         });
       }
 
@@ -594,15 +570,21 @@ export class MenuService {
   }
 
   async updateOne(groupId: number, menuData: TSysMenuUpdate) {
+
+    //TODO: send all data structure for re ordering, re ordering happens in frontend
     const requestData = await MenuValidation.MENU_UPDATE_SCHEMA.validate(menuData);
+    console.log(`${MenuService.name}:${this.updateOne.name}:requestData`, requestData);
     const { id: menuId } = requestData;
     // Check if menu exists
     const menu = await prismaClient.menu.findUnique({
       where: {
         id: menuId,
+        parentId: requestData.parentId || null,
         deletedAt: null
       }
     });
+
+
 
     if (!menu) {
       throw new ResponseError(404, "Menu not found");
@@ -624,7 +606,6 @@ export class MenuService {
     const {
       isActive,
       acls,
-      orderNumber,
       ...basicMenuData
     } = requestData;
 
@@ -664,6 +645,8 @@ export class MenuService {
         }
       });
 
+      console.log(`${MenuService.name}:${this.updateOne.name}:transaction:menuGroup`, { menuGroup });
+
       if (!menuGroup) {
         // Create the menu-group relationship if it doesn't exist
         menuGroup = await tx.menuGroup.create({
@@ -671,7 +654,6 @@ export class MenuService {
             menuId,
             groupId,
             isActive: isActive && isActive !== undefined ? isActive : false,
-            orderNumber: orderNumber && orderNumber !== undefined ? orderNumber : 0
           }
         });
       } else if (isActive !== undefined) {
@@ -680,10 +662,11 @@ export class MenuService {
           where: { id: menuGroup.id },
           data: {
             isActive: isActive ? isActive : false,
-            orderNumber: orderNumber && orderNumber !== undefined ? orderNumber : 0
           }
         });
       }
+
+
 
       // 3. Update access levels if provided using a simpler approach
       if (acls !== undefined && Array.isArray(acls)) {
@@ -741,12 +724,11 @@ export class MenuService {
         include: this.getMenuInclude()
       });
 
-      console.log(`${MenuService.name}:${this.updateOne.name}:transaction:`, updatedMenu, groupId);
 
       // 5. Transform to desired format
       return this.transformMenusForGroup([updatedMenu], groupId)[0];
     });
-    console.log(`${MenuService.name}:${this.updateOne.name}`, result);
+    console.log(`${MenuService.name}:${this.updateOne.name}:result`, result);
     return result;
   }
 

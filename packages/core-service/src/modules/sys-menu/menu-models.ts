@@ -19,11 +19,12 @@ export type TSysMenuDTO = {
 }
 export type TSysMenuCreate = Pick<Menu, 'name' | 'label' | 'description' | 'path' | 'icon' | 'parentId'> & {
   acls?: string[],
-  isActive?: boolean
+  isActive?: boolean,
+  orderNumber: number | null | undefined
+
 }
 export type TSysMenuUpdate = Pick<Menu, 'id'> & Partial<TSysMenuCreate> &  {
   acls?: string[],
   isActive?: boolean,
   orderNumber: number | undefined
-
 }
