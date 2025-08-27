@@ -9,7 +9,7 @@ export interface IResponseBody<T> {
 export interface IResponseParams<T> {
   status?: HTTP_RESPONSE_STATUS
   method?: HTTP_METHOD
-  data?: T
+  data?: T | undefined
   instanceName?: string
   meta?: any
 }
