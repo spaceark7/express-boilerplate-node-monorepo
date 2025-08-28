@@ -1,4 +1,4 @@
-import type { User, Profile,  } from "../generated/prisma";
+import type { User, Profile,  } from "../../generated/prisma";
 
 
 export type TSysUser = User

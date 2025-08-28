@@ -1,7 +1,7 @@
 import * as yup from 'yup'
 
-export class UserValidation {
-  static readonly USER_REGISTRATION_SCHEMA = yup.object().shape({
+export class AuthValidation {
+  static readonly AUTH_REGISTRATION_SCHEMA = yup.object().shape({
     email: yup.string().email().required(),
     password: yup.string().min(6).required(),
     groupId: yup.number().integer().optional(),
@@ -9,7 +9,7 @@ export class UserValidation {
     lastName: yup.string().min(2).max(100).required(),
   });
 
-  static readonly USER_LOGIN_SCHEMA = yup.object().shape({
+  static readonly AUTH_LOGIN_SCHEMA = yup.object().shape({
     email: yup.string().email().required(),
     password: yup.string().min(6).required(),
   });

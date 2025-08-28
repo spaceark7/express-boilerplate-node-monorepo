@@ -190,6 +190,7 @@ export class MenuService {
     }
   }
 
+
   async create(menuData: TSysMenuCreate) {
     const { isActive, acls, orderNumber, ...requestData } = await Validation.validate(MenuValidation.MENU_CREATE_SCHEMA, menuData);
     const groupId = this.user?.groupId;

@@ -6,11 +6,11 @@ import { MenuController } from "packages/core-service/src/modules/sys-menu/menu-
 export const menuRoutes = Router();
 menuRoutes.use(authMiddleware)
 menuRoutes.use(authorizationMiddleware);
-menuRoutes.post("/menu", MenuController.create);
-menuRoutes.get("/menu", MenuController.findMany);
-menuRoutes.get("/menu/:id", MenuController.findById);
-menuRoutes.get("/menu/group/:groupId", MenuController.findByGroupId);
-menuRoutes.put("/menu/group/:groupId", MenuController.updateOne);
-menuRoutes.get("/menu/:id", MenuController.findById);
-menuRoutes.put("/menu/:id", MenuController.updateOne);
-menuRoutes.delete("/menu/:id", MenuController.deleteOne);
+menuRoutes.post("/menus", MenuController.create);
+menuRoutes.get("/menus", MenuController.findMany);
+menuRoutes.get("/menus/:id", MenuController.findById);
+menuRoutes.get("/menus/group/:groupId", MenuController.findByGroupId);
+menuRoutes.put("/menus/group/:groupId", MenuController.updateOne);
+menuRoutes.get("/menus/:id", MenuController.findById);
+menuRoutes.put("/menus/:id", MenuController.updateOne);
+menuRoutes.delete("/menus/:id", MenuController.deleteOne);

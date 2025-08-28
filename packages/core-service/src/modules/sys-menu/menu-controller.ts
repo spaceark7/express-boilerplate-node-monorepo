@@ -1,8 +1,9 @@
 import type { NextFunction, Request, Response } from "express";
 import { MenuService } from "packages/core-service/src/modules/sys-menu/menu-services";
-import { BaseController, HTTP_METHOD, HTTP_RESPONSE_STATUS, ResponseDTO, ResponseError } from "shared";
+import { type IBaseController, HTTP_METHOD, HTTP_RESPONSE_STATUS, ResponseDTO, ResponseError } from "shared";
+import { BaseController } from "shared/src/base-controller";
 
-export class MenuController extends BaseController {
+export class MenuController extends BaseController implements IBaseController {
   private static instanceName = 'Menu';
   static async create(req: Request, res: Response, next: NextFunction) {
     try {

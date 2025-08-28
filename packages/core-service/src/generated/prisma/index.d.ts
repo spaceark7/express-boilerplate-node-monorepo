@@ -2833,6 +2833,7 @@ export namespace Prisma {
   export type GroupMinAggregateOutputType = {
     id: number | null
     name: string | null
+    description: string | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
@@ -2842,6 +2843,7 @@ export namespace Prisma {
   export type GroupMaxAggregateOutputType = {
     id: number | null
     name: string | null
+    description: string | null
     createdAt: Date | null
     updatedAt: Date | null
     deletedAt: Date | null
@@ -2851,6 +2853,7 @@ export namespace Prisma {
   export type GroupCountAggregateOutputType = {
     id: number
     name: number
+    description: number
     createdAt: number
     updatedAt: number
     deletedAt: number
@@ -2870,6 +2873,7 @@ export namespace Prisma {
   export type GroupMinAggregateInputType = {
     id?: true
     name?: true
+    description?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
@@ -2879,6 +2883,7 @@ export namespace Prisma {
   export type GroupMaxAggregateInputType = {
     id?: true
     name?: true
+    description?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
@@ -2888,6 +2893,7 @@ export namespace Prisma {
   export type GroupCountAggregateInputType = {
     id?: true
     name?: true
+    description?: true
     createdAt?: true
     updatedAt?: true
     deletedAt?: true
@@ -2984,6 +2990,7 @@ export namespace Prisma {
   export type GroupGroupByOutputType = {
     id: number
     name: string
+    description: string | null
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -3012,6 +3019,7 @@ export namespace Prisma {
   export type GroupSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
@@ -3024,6 +3032,7 @@ export namespace Prisma {
   export type GroupSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
@@ -3033,6 +3042,7 @@ export namespace Prisma {
   export type GroupSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
@@ -3042,13 +3052,14 @@ export namespace Prisma {
   export type GroupSelectScalar = {
     id?: boolean
     name?: boolean
+    description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     deletedAt?: boolean
     deletedBy?: boolean
   }
 
-  export type GroupOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt" | "updatedAt" | "deletedAt" | "deletedBy", ExtArgs["result"]["group"]>
+  export type GroupOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "createdAt" | "updatedAt" | "deletedAt" | "deletedBy", ExtArgs["result"]["group"]>
   export type GroupInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | Group$usersArgs<ExtArgs>
     menus?: boolean | Group$menusArgs<ExtArgs>
@@ -3066,6 +3077,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
+      description: string | null
       createdAt: Date
       updatedAt: Date
       deletedAt: Date | null
@@ -3497,6 +3509,7 @@ export namespace Prisma {
   interface GroupFieldRefs {
     readonly id: FieldRef<"Group", 'Int'>
     readonly name: FieldRef<"Group", 'String'>
+    readonly description: FieldRef<"Group", 'String'>
     readonly createdAt: FieldRef<"Group", 'DateTime'>
     readonly updatedAt: FieldRef<"Group", 'DateTime'>
     readonly deletedAt: FieldRef<"Group", 'DateTime'>
@@ -10812,6 +10825,7 @@ export namespace Prisma {
   export const GroupScalarFieldEnum: {
     id: 'id',
     name: 'name',
+    description: 'description',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     deletedAt: 'deletedAt',
@@ -11066,6 +11080,7 @@ export namespace Prisma {
     NOT?: GroupWhereInput | GroupWhereInput[]
     id?: IntFilter<"Group"> | number
     name?: StringFilter<"Group"> | string
+    description?: StringNullableFilter<"Group"> | string | null
     createdAt?: DateTimeFilter<"Group"> | Date | string
     updatedAt?: DateTimeFilter<"Group"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Group"> | Date | string | null
@@ -11077,6 +11092,7 @@ export namespace Prisma {
   export type GroupOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
+    description?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
@@ -11091,6 +11107,7 @@ export namespace Prisma {
     AND?: GroupWhereInput | GroupWhereInput[]
     OR?: GroupWhereInput[]
     NOT?: GroupWhereInput | GroupWhereInput[]
+    description?: StringNullableFilter<"Group"> | string | null
     createdAt?: DateTimeFilter<"Group"> | Date | string
     updatedAt?: DateTimeFilter<"Group"> | Date | string
     deletedAt?: DateTimeNullableFilter<"Group"> | Date | string | null
@@ -11102,6 +11119,7 @@ export namespace Prisma {
   export type GroupOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
+    description?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrderInput | SortOrder
@@ -11119,6 +11137,7 @@ export namespace Prisma {
     NOT?: GroupScalarWhereWithAggregatesInput | GroupScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Group"> | number
     name?: StringWithAggregatesFilter<"Group"> | string
+    description?: StringNullableWithAggregatesFilter<"Group"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Group"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Group"> | Date | string
     deletedAt?: DateTimeNullableWithAggregatesFilter<"Group"> | Date | string | null
@@ -11588,6 +11607,7 @@ export namespace Prisma {
 
   export type GroupCreateInput = {
     name: string
+    description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -11599,6 +11619,7 @@ export namespace Prisma {
   export type GroupUncheckedCreateInput = {
     id?: number
     name: string
+    description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -11609,6 +11630,7 @@ export namespace Prisma {
 
   export type GroupUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11620,6 +11642,7 @@ export namespace Prisma {
   export type GroupUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11631,6 +11654,7 @@ export namespace Prisma {
   export type GroupCreateManyInput = {
     id?: number
     name: string
+    description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -11639,6 +11663,7 @@ export namespace Prisma {
 
   export type GroupUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -11648,6 +11673,7 @@ export namespace Prisma {
   export type GroupUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -12217,6 +12243,7 @@ export namespace Prisma {
   export type GroupCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    description?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
@@ -12230,6 +12257,7 @@ export namespace Prisma {
   export type GroupMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    description?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
@@ -12239,6 +12267,7 @@ export namespace Prisma {
   export type GroupMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    description?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     deletedAt?: SortOrder
@@ -13355,6 +13384,7 @@ export namespace Prisma {
 
   export type GroupCreateWithoutUsersInput = {
     name: string
+    description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -13365,6 +13395,7 @@ export namespace Prisma {
   export type GroupUncheckedCreateWithoutUsersInput = {
     id?: number
     name: string
+    description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -13420,6 +13451,7 @@ export namespace Prisma {
 
   export type GroupUpdateWithoutUsersInput = {
     name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13430,6 +13462,7 @@ export namespace Prisma {
   export type GroupUncheckedUpdateWithoutUsersInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13607,6 +13640,7 @@ export namespace Prisma {
 
   export type GroupCreateWithoutMenusInput = {
     name: string
+    description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -13617,6 +13651,7 @@ export namespace Prisma {
   export type GroupUncheckedCreateWithoutMenusInput = {
     id?: number
     name: string
+    description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
@@ -13699,6 +13734,7 @@ export namespace Prisma {
 
   export type GroupUpdateWithoutMenusInput = {
     name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13709,6 +13745,7 @@ export namespace Prisma {
   export type GroupUncheckedUpdateWithoutMenusInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null

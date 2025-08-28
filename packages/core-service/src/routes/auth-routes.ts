@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { AuthController } from "packages/core-service/src/controllers/auth-controllers";
+import { AuthController } from "packages/core-service/src/modules/sys-auth/auth-controllers";
 
 export const authRoutes = Router();
 

@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from "express";
-import { AuthService } from "packages/core-service/src/services/auth-services";
+import { AuthService } from "packages/core-service/src/modules/sys-auth/auth-services";
 import { ResponseDTO, ResponseError, verifyToken } from "shared";
 import { HTTP_METHOD, HTTP_RESPONSE_STATUS } from "shared/src/types/internal-response";
 

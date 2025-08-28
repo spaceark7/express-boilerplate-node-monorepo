@@ -1,4 +1,5 @@
-import type { Request } from "express";
+import type { IBaseController, ICoreController } from './types/base-crud';
+import type { NextFunction, Request, Response } from "express";
 import { ResponseError } from "shared/src/response-error";
 import type { IUserJWTPayload } from "shared/src/types/types";
 
@@ -10,7 +11,7 @@ declare global {
   }
 }
 
-export class BaseController {
+export class BaseController implements ICoreController {
   protected static getService<T>(
     req: Request,
     ServiceClass: new (user?: IUserJWTPayload) => T
@@ -33,4 +34,7 @@ export class BaseController {
      throw new ResponseError(500, "Internal Server Error");
    }
   }
+
+
+
 }
