@@ -16,9 +16,12 @@
   },
   "dependencies": {
     "@prisma/client": "^6.15.0",
+    "@types/cors": "^2.8.19",
     "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
+    "prisma-query-tools": "^1.1.2",
     "shared": "*",
     "yup": "^1.7.0"
   },

@@ -5,12 +5,13 @@ import { authRoutes } from 'packages/core-service/src/routes/auth-routes'
 import { menuRoutes } from 'packages/core-service/src/routes/menu-routes'
 import { groupRoutes } from 'packages/core-service/src/routes/group-routes'
 import { userRoutes } from 'packages/core-service/src/routes/user-routes'
-
+import cors from 'cors';
 dotenv.config()
 
 console.log(`Starting ${process.env.APP_NAME} on port ${process.env.APP_PORT}`)
 
 export const webServer = express()
+webServer.use(cors());
 webServer.use(express.json());
 
 //#region Routes

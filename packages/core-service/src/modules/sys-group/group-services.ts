@@ -62,12 +62,17 @@ export class SysGroupService implements IBaseServiceCrud {
     return newGroup;
   }
 
-  async findMany(_query?: any): Promise<TSysGroup[]> {
+  async findMany(query?: any): Promise<TSysGroup[]> {
     const groups = await prismaClient.group.findMany({
+      ...query,
       where: {
+        ...query?.where,
         deletedAt: null,
       },
     });
+    if (groups.length === 0) {
+      throw new ResponseError(404, "No groups found");
+    }
     return groups;
   }
 

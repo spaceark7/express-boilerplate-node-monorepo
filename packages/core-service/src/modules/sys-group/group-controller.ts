@@ -1,7 +1,8 @@
+import type { QueryOptions } from "@prisma/client/runtime/library";
 import type { NextFunction, Request, Response } from "express";
 import { SysGroupService } from "packages/core-service/src/modules/sys-group/group-services";
+import { parseQuery, type PrismaQuery, type QueryParseResult } from "prisma-query-tools";
 import { BaseController, HTTP_METHOD, HTTP_RESPONSE_STATUS, ResponseDTO } from "shared";
-
 export class SysGroupController extends BaseController   {
 
   private static instanceName = 'Group';
@@ -20,9 +21,16 @@ export class SysGroupController extends BaseController   {
  }
 
  static async findMany(req: Request, res: Response, next: NextFunction): Promise<void> {
+   console.log('Req:', req.query);
+   let query: PrismaQuery = {};
+   const parsed = parseQuery(req.query);
+   if (parsed.success) {
+     query = parsed.data;
+   }
+   console.log('Parsed Query:', query);
    try {
      const groupService = SysGroupController.getService(req, SysGroupService);
-     const groups = await groupService.findMany(req.query);
+     const groups = await groupService.findMany(query);
      res.status(HTTP_RESPONSE_STATUS.OK).json(
       ResponseDTO.format({ data: groups, instanceName: SysGroupController.instanceName, status: HTTP_RESPONSE_STATUS.OK, method: HTTP_METHOD.GET })
      );

@@ -2,6 +2,7 @@ import prismaClient from "packages/core-service/src/app/config/database";
 import type { TSysUser } from "packages/core-service/src/modules/sys-auth/auth-models";
 import type { TSysUserCreate } from "packages/core-service/src/modules/sys-user/user-models";
 import { UserValidation } from "packages/core-service/src/modules/sys-user/user-validations";
+import { mergeQueries } from "prisma-query-tools";
 import { ResponseError, Validation, type IBaseServiceCrud } from "shared";
 import type { IUserJWTPayload } from "shared/src/types/types";
 
@@ -45,23 +46,15 @@ export class UserService implements IBaseServiceCrud  {
     }
 
     async findMany(query?: any): Promise<Partial<any[] | null>> {
-      const users =  await prismaClient.user.findMany({
+      const defaultQuery = {
         where: {
-          deletedAt: null
+          deletedAt: null,
         },
-        select: {
-          id: true,
-          email: true,
-          groupId: true,
-          createdAt: true,
-          updatedAt: true,
-          profile: {
-            select: {
-              firstName: true,
-              lastName: true,
-            }
-          }
-        }
+      }
+      const mergedQuery = mergeQueries(query, defaultQuery);
+      console.log('Merged Query:', mergedQuery);
+      const users =  await prismaClient.user.findMany({
+        ...mergedQuery,
       });
 
       if (!users || users.length === 0) {
