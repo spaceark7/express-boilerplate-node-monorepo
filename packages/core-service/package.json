@@ -21,7 +21,7 @@
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
-    "prisma-query-tools": "^1.1.2",
+    "prisma-query-tools": "^1.1.7",
     "shared": "*",
     "yup": "^1.7.0"
   },

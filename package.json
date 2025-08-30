@@ -42,6 +42,7 @@
     "typescript": "^5.9.2"
   },
   "dependencies": {
-    "@types/cors": "^2.8.19"
+    "@types/cors": "^2.8.19",
+    "prisma-query-tools": "^1.1.8"
   }
 }
