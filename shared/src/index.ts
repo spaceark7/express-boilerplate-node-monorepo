@@ -8,4 +8,5 @@ export * from './internal-response/response-dto';
 export * from './error-handler';
 export * from './jwt';
 export * from './base-controller'
+export * from './i18n';
 export type { ICRUDController, IBaseController, IBaseServiceCrud } from './types/base-crud';

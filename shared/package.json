@@ -7,13 +7,15 @@
   "scripts": {
     "build": "tsc --build",
     "clean": "rm -rf dist",
-    "dev": "tsc --watch"
+    "dev": "tsc --watch",
+    "interface": "i18next-resources-for-ts interface -i ./src/i18n/locales/en -o ./src/i18n/resources.d.ts"
   },
   "devDependencies": {
     "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.3.0",
     "eslint": "^9.34.0",
+    "i18next-resources-for-ts": "^1.7.1",
     "nodemon": "^3.1.10",
     "prettier": "^3.6.2",
     "ts-node": "^10.9.2",
@@ -23,6 +25,8 @@
     "@prisma/client": "^6.15.0",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
+    "i18next": "^25.4.2",
+    "i18next-http-middleware": "^3.8.0",
     "jsonwebtoken": "^9.0.2",
     "winston": "^3.17.0",
     "yup": "^1.7.0"

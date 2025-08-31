@@ -1,4 +1,5 @@
-import jwt from 'jsonwebtoken'
+import type { TFunctionExt } from 'i18next';
+import jwt from 'jsonwebtoken';
 import type { IUserJWTPayload } from 'shared/src/types/types';
 
 const signToken = (userId: number, email: string, groupId: number) => {
@@ -6,15 +7,14 @@ const signToken = (userId: number, email: string, groupId: number) => {
   return jwt.sign(payload, process.env.JWT_SECRET as string, { expiresIn: '1h' });
 };
 
-const verifyToken = (token: string) => {
+const verifyToken = (token: string, t?: TFunctionExt) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as IUserJWTPayload;
-    console.log('shared:jwt:verifyToken:decoded', decoded);
 
     return decoded;
   } catch (error) {
-    console.log('shared:jwt:verifyToken:error', error);
-    throw new Error(error instanceof Error ? error.message : 'Invalid token');
+    throw new Error(error instanceof Error ? t ? t('error.jwt.expired') : 'JWT expired'
+      : t ? t('error.jwt.invalid') : 'JWT invalid');
   }
 };
 
