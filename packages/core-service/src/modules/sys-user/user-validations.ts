@@ -10,13 +10,14 @@ export class UserValidation {
   })
 
   static readonly USER_UPDATE_SCHEMA = yup.object<TSysUserUpdate>({
-    id: yup.number().required(),
-    email: yup.string().email().required(),
+    id: yup.number().optional(),
+    email: yup.string().email().optional(),
     profile: yup.object({
       firstName: yup.string().min(2).max(100).nullable(),
       lastName: yup.string().min(2).max(100).nullable(),
       emailSecondary: yup.string().email().nullable(),
-      phone: yup.string().nullable(),
+      phone: yup.string().min(10, 'invalid phone number').max(15, 'invalid phone number')
+        .matches(/^(?:\+62|62|0)8[1-9][0-9]{6,9}$/, 'invalid phone number').nullable(),
     }).nullable()
   })
 

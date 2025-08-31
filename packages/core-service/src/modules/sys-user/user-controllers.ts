@@ -16,7 +16,7 @@ export class UserController extends BaseController {
           instanceName: UserController.instanceName,
           method: HTTP_METHOD.POST,
           status: HTTP_RESPONSE_STATUS.CREATED
-        })
+        }, req.t)
       );
     } catch (error) {
       next(error);
@@ -40,7 +40,7 @@ export class UserController extends BaseController {
           instanceName: UserController.instanceName,
           method: HTTP_METHOD.GET,
           status: HTTP_RESPONSE_STATUS.OK
-        })
+        }, req.t)
       );
     } catch (error) {
       next(error);
@@ -61,7 +61,7 @@ export class UserController extends BaseController {
           instanceName: UserController.instanceName,
           method: HTTP_METHOD.GET,
           status: HTTP_RESPONSE_STATUS.OK
-        })
+        }, req.t)
       );
     } catch (error) {
       next(error);
@@ -82,7 +82,8 @@ export class UserController extends BaseController {
           instanceName: UserController.instanceName,
           method: HTTP_METHOD.PUT,
           status: HTTP_RESPONSE_STATUS.OK
-        })
+
+        }, req.t)
       );
     } catch (error) {
       next(error);
@@ -103,7 +104,7 @@ export class UserController extends BaseController {
           instanceName: UserController.instanceName,
           method: HTTP_METHOD.DELETE,
           status: HTTP_RESPONSE_STATUS.OK
-        })
+        }, req.t)
       );
     } catch (error) {
       next(error);

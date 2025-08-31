@@ -5,7 +5,7 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
   const token = req.headers.authorization?.split(" ")[1];
   if (!token) throw new ResponseError(401, "Unauthorized");
 
-  const decoded = verifyToken(token);
+  const decoded = verifyToken(token, req.t);
   if (!decoded) throw new ResponseError(401, "Unauthorized");
   req.user = decoded;
   next();

@@ -38,8 +38,9 @@ export class AuthService {
         }
       },
       select: {
-        email: true,
         id: true,
+        uuid: true,
+        email: true,
         group: {
           select: {
             name: true

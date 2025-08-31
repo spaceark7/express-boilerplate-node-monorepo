@@ -28,6 +28,7 @@ export class UserService implements IBaseServiceCrud {
     return prismaClient.user.create({
       data: requestData,
       select: {
+        uuid: true,
         id: true,
         email: true,
         groupId: true,

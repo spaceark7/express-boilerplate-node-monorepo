@@ -6,11 +6,16 @@ import { menuRoutes } from 'packages/core-service/src/routes/menu-routes'
 import { groupRoutes } from 'packages/core-service/src/routes/group-routes'
 import { userRoutes } from 'packages/core-service/src/routes/user-routes'
 import cors from 'cors';
+import { handle } from "i18next-http-middleware";
+import { i18n } from 'shared'
+
 dotenv.config()
 
 console.log(`Starting ${process.env.APP_NAME} on port ${process.env.APP_PORT}`)
 
 export const webServer = express()
+webServer.use(handle(i18n));
+
 webServer.use(cors());
 webServer.use(express.json());
 
@@ -28,7 +33,8 @@ webServer.use(errorMiddleware)
 
 webServer.get('/', (req, res) => {
   res.json({
-    message: 'Core Service'
+    message: req.t('welcome', { appName: process.env.APP_NAME || 'Express Boilerplate' })
+    // message: req.t('greeting')
   })
 })
 
