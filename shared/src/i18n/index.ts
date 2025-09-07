@@ -25,7 +25,7 @@ i18n
   .use(Backend)
   .use(LanguageDetector)
   .init({
-    debug: true,
+    // debug: true,
     backend: {
       loadPath: join(__dirname, "locales/{{lng}}.json"),
       // Also check nested directories if needed

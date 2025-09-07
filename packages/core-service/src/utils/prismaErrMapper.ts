@@ -106,5 +106,12 @@ export function mapPrismaError(error: unknown): ResponseError | null {
     }
   }
 
+  if (error instanceof Prisma.PrismaClientValidationError) {
+    return new ResponseError(
+      HTTP_RESPONSE_STATUS.BAD_REQUEST,
+      `Database validation error: ${error.message}`
+    );
+  }
+
   return null;
 }

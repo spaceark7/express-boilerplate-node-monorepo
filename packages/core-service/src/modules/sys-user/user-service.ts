@@ -2,7 +2,7 @@ import prismaClient from "packages/core-service/src/app/config/database";
 import type { TSysUser } from "packages/core-service/src/modules/sys-auth/auth-models";
 import type { TSysUserCreate, TSysUserUpdate } from "packages/core-service/src/modules/sys-user/user-models";
 import { UserValidation } from "packages/core-service/src/modules/sys-user/user-validations";
-import { mergeQueries } from "prisma-query-tools";
+import { mergeQueries, type PrismaQuery } from "prisma-query-tools";
 import { ResponseError, Validation, type IBaseServiceCrud } from "shared";
 import type { IUserJWTPayload } from "shared/src/types/types";
 
@@ -15,7 +15,7 @@ export class UserService implements IBaseServiceCrud {
   }
 
   //#region CRUD Operations
-  async create(data: TSysUserCreate): Promise<Partial<TSysUser>> {
+  async createOne(data: TSysUserCreate): Promise<Partial<TSysUser>> {
     const requestData = await Validation.validate(UserValidation.USER_CREATE_SCHEMA, data);
     const isExist = await prismaClient.user.count({
       where: {
@@ -26,7 +26,14 @@ export class UserService implements IBaseServiceCrud {
       throw new ResponseError(400, "Email already registered");
     }
     return prismaClient.user.create({
-      data: requestData,
+      data: {
+        ...requestData,
+        profile: {
+          create: {
+            ...requestData.profile
+          }
+        }
+      },
       select: {
         uuid: true,
         id: true,
@@ -44,26 +51,61 @@ export class UserService implements IBaseServiceCrud {
       }
     });
   }
-
   async createMany(data: TSysUserCreate[]): Promise<any> {
-    const requestData = await Validation.validate(UserValidation.USER_CREATE_SCHEMA, data);
-    const users = await prismaClient.user.createMany({
-      data: requestData
+    const requestData = await Validation.validate(UserValidation.USER_CREATEMANY_SCHEMA, data);
+    const res = await prismaClient.$transaction(async (prisma) => {
+      const createUsers = requestData.map(user => {
+        return prisma.user.create({
+          data: {
+            ...user,
+            profile: {
+              create: {
+                ...user.profile
+              }
+            }
+          }
+        });
+      });
+      return await Promise.all(createUsers);
     });
+    const users = {
+      count: res.length,
+      users: res.map(user => ({
+        uuid: user.uuid,
+        email: user.email
+      }))
+    };
+    if (users.count === 0) {
+      throw new ResponseError(400, "No users created");
+    }
     return `${users.count} users created successfully`;
   }
-
   async findMany(query?: any): Promise<Partial<any[] | null>> {
-    const defaultQuery = {
+    const defaultQuery: PrismaQuery = {
       where: {
         deletedAt: null,
       },
-    }
+      orderBy: [{
+        id: 'asc'
+      }],
+      omit: {
+        password: true,
+      },
+      include: {
+        profile: {
+          omit: {
+            userId: true,
+            id: true,
+          }
+        }
+      }
+    };
     const mergedQuery = mergeQueries(query, defaultQuery);
     console.log('Merged Query:', mergedQuery);
     console.log('Final Query:', JSON.stringify(mergedQuery));
     const users = await prismaClient.user.findMany({
       ...mergedQuery,
+
     });
 
     if (!users || users.length === 0) {
@@ -146,7 +188,66 @@ export class UserService implements IBaseServiceCrud {
 
     return user;
   }
+  async updateRecover(uuid: string): Promise<any | null> {
+    const isExist = await prismaClient.user.count({
+      where: {
+        uuid
+      }
+    });
 
+    if (!isExist) {
+      throw new ResponseError(404, "User not found");
+    }
+
+    const user = await prismaClient.user.update({
+      where: {
+        uuid
+      },
+      omit: {
+        password: true,
+      },
+      data: {
+        deletedAt: null,
+        updatedAt: new Date()
+      },
+      include: {
+        profile: {
+          omit: {
+            userId: true,
+            id: true,
+
+          }
+        }
+      }
+    });
+
+    if (!user) {
+      throw new ResponseError(404, "User not found");
+    }
+
+    return user;
+  }
+  async recoverMany(ids: number[]): Promise<string[]> {
+    const users = await prismaClient.user.updateManyAndReturn({
+      where: {
+        id: {
+          in: ids
+        }
+      },
+      data: {
+        deletedAt: null,
+        updatedAt: new Date()
+      },
+      omit: { password: true },
+
+    });
+
+    if (!users) {
+      throw new ResponseError(404, "No users found");
+    }
+
+    return users.map(user => `${user.email} has been recovered`);
+  }
   async deleteOne(uuid: string): Promise<any | null> {
     const user = await prismaClient.user.update({
       where: {
@@ -164,6 +265,7 @@ export class UserService implements IBaseServiceCrud {
     return `${user.email} has been deleted`;
   }
   async deleteMany(ids: number[]): Promise<string[]> {
+    console.log(ids);
     const users = await prismaClient.user.updateManyAndReturn({
       where: {
         id: {
@@ -182,6 +284,4 @@ export class UserService implements IBaseServiceCrud {
     return users.map(user => `${user.email} has been deleted`);
   }
   //#endregion CRUD Operations
-
-
 }

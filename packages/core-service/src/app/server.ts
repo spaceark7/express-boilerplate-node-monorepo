@@ -31,7 +31,6 @@ webServer.use(errorMiddleware)
 //#endregion Middleware post Catch
 
 webServer.get('/', (req, res) => {
-  req.t('greeting') // 'hello world'
   res.json({
     message: req.t('welcome', { appName: process.env.APP_NAME || 'Express Boilerplate' })
     // message: req.t('greeting')

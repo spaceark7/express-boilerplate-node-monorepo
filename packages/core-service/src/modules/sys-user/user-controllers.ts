@@ -9,10 +9,30 @@ export class UserController extends BaseController {
   static async createOne(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const userService = UserController.getService(req, UserService);
-      const user = await userService.create(req.body);
+      const user = await userService.createOne(req.body);
       res.status(201).json(
         ResponseDTO.format({
           data: user,
+          instanceName: UserController.instanceName,
+          method: HTTP_METHOD.POST,
+          status: HTTP_RESPONSE_STATUS.CREATED
+        }, req.t)
+      );
+    } catch (error) {
+      next(error);
+    }
+  }
+  static async createMany(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { items } = req.body;
+      if (!items || !Array.isArray(items) || items.length === 0) {
+        throw new ResponseError(400, req.t('validation.array.min', { field: 'items', min: 1 }));
+      }
+      const userService = UserController.getService(req, UserService);
+      const message = await userService.createMany(items);
+      res.status(201).json(
+        ResponseDTO.format({
+          data: message,
           instanceName: UserController.instanceName,
           method: HTTP_METHOD.POST,
           status: HTTP_RESPONSE_STATUS.CREATED
@@ -46,7 +66,6 @@ export class UserController extends BaseController {
       next(error);
     }
   }
-
   static async findOne(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { uuid } = req.params;
@@ -67,7 +86,6 @@ export class UserController extends BaseController {
       next(error);
     }
   }
-
   static async updateOne(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { uuid } = req.params;
@@ -89,7 +107,48 @@ export class UserController extends BaseController {
       next(error);
     }
   }
+  static async updateRecover(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { uuid } = req.params;
+      if (!uuid) {
+        throw new ResponseError(400, "User UUID is required");
+      }
+      const userService = UserController.getService(req, UserService);
+      const user = await userService.updateRecover(uuid);
+      res.json(
+        ResponseDTO.format({
+          data: user,
+          instanceName: UserController.instanceName,
+          method: HTTP_METHOD.PUT,
+          status: HTTP_RESPONSE_STATUS.OK
 
+        }, req.t)
+      );
+    } catch (error) {
+      next(error);
+    }
+  }
+  static async updateRecoverMany(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { items } = req.body;
+      if (!items || !Array.isArray(items) || items.length === 0) {
+        throw new ResponseError(400, req.t('validation.array.min', { field: 'items', min: 1 }));
+      }
+      const userService = UserController.getService(req, UserService);
+      const message = await userService.recoverMany(items);
+      res.json(
+        ResponseDTO.format({
+          data: message,
+          instanceName: UserController.instanceName,
+          method: HTTP_METHOD.PUT,
+          status: HTTP_RESPONSE_STATUS.OK
+
+        }, req.t)
+      );
+    } catch (error) {
+      next(error);
+    }
+  }
   static async deleteOne(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { uuid } = req.params;
@@ -98,6 +157,26 @@ export class UserController extends BaseController {
       }
       const userService = UserController.getService(req, UserService);
       const message = await userService.deleteOne(uuid);
+      res.json(
+        ResponseDTO.format({
+          data: message,
+          instanceName: UserController.instanceName,
+          method: HTTP_METHOD.DELETE,
+          status: HTTP_RESPONSE_STATUS.OK
+        }, req.t)
+      );
+    } catch (error) {
+      next(error);
+    }
+  }
+  static async deleteMany(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { items } = req.body;
+      if (!items || !Array.isArray(items) || items.length === 0) {
+        throw new ResponseError(400, req.t('validation.array.min', { field: 'items', min: 1 }));
+      }
+      const userService = UserController.getService(req, UserService);
+      const message = await userService.deleteMany(items);
       res.json(
         ResponseDTO.format({
           data: message,
