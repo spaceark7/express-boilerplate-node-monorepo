@@ -1,5 +1,5 @@
-import type { TFunctionExt } from 'i18next';
 import jwt from 'jsonwebtoken';
+import type { TFunctionExt } from 'shared/src/i18n/@types/t-function-ext';
 import type { IUserJWTPayload } from 'shared/src/types/types';
 
 const signToken = (userId: number, email: string, groupId: number) => {

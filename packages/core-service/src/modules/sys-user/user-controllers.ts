@@ -94,7 +94,7 @@ export class UserController extends BaseController {
     try {
       const { uuid } = req.params;
       if (!uuid) {
-        throw new ResponseError(400, "User UUID is required");
+        throw new ResponseError(400, req.t(''));
       }
       const userService = UserController.getService(req, UserService);
       const message = await userService.deleteOne(uuid);

@@ -6,6 +6,7 @@
     "moduleResolution": "bundler",
     "esModuleInterop": true, // Add this flag
     "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true, // Add this for JSON imports
     "baseUrl": ".",
     "paths": {
       "shared": [
@@ -27,5 +28,9 @@
   "include": [
     "packages/**/*",
     "shared/**/*"
-  ]
+  ],
+  "files": [
+    "shared/src/i18n/@types/express.d.ts",
+    "shared/src/i18n/@types/i18n.d.ts"
+  ],
 }

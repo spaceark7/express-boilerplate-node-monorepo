@@ -1,0 +1,73 @@
+{
+  "welcome": "Selamat datang di {{appName}}!",
+  "greeting": "Halo",
+  "farewell": "Selamat tinggal",
+  "user": {
+    "created": "Pengguna berhasil dibuat.",
+    "updated": "Pengguna berhasil diperbarui.",
+    "deleted": "Pengguna berhasil dihapus.",
+    "not_found": "Pengguna tidak ditemukan.",
+    "invalid_email": "Alamat email tidak valid.",
+    "invalid_password": "Kata sandi minimal 6 karakter.",
+    "invalid_phone": "Nomor telepon tidak valid.",
+    "login_success": "Login berhasil.",
+    "login_failed": "Login gagal. Silakan periksa kredensial Anda.",
+    "unauthorized": "Akses tidak sah.",
+    "forbidden": "Anda tidak memiliki izin untuk melakukan aksi ini.",
+    "profile": {
+      "first_name": "Nama depan",
+      "last_name": "Nama belakang",
+      "email_secondary": "Email sekunder",
+      "phone": "Nomor telepon"
+    }
+  },
+  "group": {
+    "created": "Grup berhasil dibuat.",
+    "updated": "Grup berhasil diperbarui.",
+    "deleted": "Grup berhasil dihapus.",
+    "not_found": "Grup tidak ditemukan.",
+    "name": "Nama grup",
+    "description": "Deskripsi"
+  },
+  "menu": {
+    "created": "Menu berhasil dibuat.",
+    "updated": "Menu berhasil diperbarui.",
+    "deleted": "Menu berhasil dihapus.",
+    "not_found": "Menu tidak ditemukan.",
+    "name": "Nama menu",
+    "label": "Label",
+    "icon": "Ikon",
+    "path": "Path",
+    "order_number": "Nomor urut",
+    "is_active": "Aktif"
+  },
+  "validation": {
+    "required": "Kolom ini wajib diisi.",
+    "min_length": "Minimal {{min}} karakter.",
+    "max_length": "Maksimal {{max}} karakter.",
+    "invalid_format": "Format tidak valid.",
+    "invalid_enum": "Nilai tidak valid.",
+    "invalid_date": "Tanggal tidak valid."
+  },
+  "error": {
+    "internal_server": "Kesalahan server internal.",
+    "not_found": "Sumber daya tidak ditemukan.",
+    "bad_request": "Permintaan tidak valid.",
+    "unauthorized": "Tidak sah.",
+    "forbidden": "Dilarang.",
+    "conflict": "Terjadi konflik.",
+    "validation": "Kesalahan validasi.",
+    "database": "Kesalahan database.",
+    "jwt": {
+      "invalid": "Token JWT tidak valid.",
+      "missing": "Token JWT tidak ditemukan.",
+      "expired": "Token JWT telah kedaluwarsa."
+    }
+  },
+  "success": {
+    "operation": "Operasi berhasil diselesaikan.",
+    "created": "Berhasil dibuat.",
+    "updated": "Berhasil diperbarui.",
+    "deleted": "Berhasil dihapus."
+  }
+}

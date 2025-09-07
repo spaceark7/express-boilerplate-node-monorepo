@@ -4,8 +4,15 @@
     "outDir": "./dist",
     "sourceMap": true,
     "esModuleInterop": true,
+    "types": [
+      "node",
+      "express",
+      "i18next",
+      "i18next-http-middleware"
+    ]
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "src/i18n/*.d.ts"
   ]
 }

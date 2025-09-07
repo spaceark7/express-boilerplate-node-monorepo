@@ -10,7 +10,7 @@ export class MenuController extends BaseController implements IBaseController {
       const menuService = MenuController.getService(req, MenuService);
 
       const menu = await menuService.create(req.body);
-      res.status(HTTP_RESPONSE_STATUS.CREATED).json(ResponseDTO.format({ data: menu, instanceName: MenuController.instanceName, status: HTTP_RESPONSE_STATUS.CREATED, method: HTTP_METHOD.POST }));
+      res.status(HTTP_RESPONSE_STATUS.CREATED).json(ResponseDTO.format({ data: menu, instanceName: MenuController.instanceName, status: HTTP_RESPONSE_STATUS.CREATED, method: HTTP_METHOD.POST }, req.t));
     } catch (error) {
       next(error);
     }
@@ -21,7 +21,7 @@ export class MenuController extends BaseController implements IBaseController {
       const menuService = MenuController.getService(req, MenuService);
 
       const menus = await menuService.findMany();
-      res.status(HTTP_RESPONSE_STATUS.OK).json(ResponseDTO.format({ data: menus, instanceName: MenuController.instanceName, status: HTTP_RESPONSE_STATUS.OK, method: HTTP_METHOD.GET }));
+      res.status(HTTP_RESPONSE_STATUS.OK).json(ResponseDTO.format({ data: menus, instanceName: MenuController.instanceName, status: HTTP_RESPONSE_STATUS.OK, method: HTTP_METHOD.GET }, req.t));
     } catch (error) {
       next(error);
     }
@@ -37,7 +37,7 @@ export class MenuController extends BaseController implements IBaseController {
       const menuService = MenuController.getService(req, MenuService);
 
       const menus = await menuService.findMenusByGroupId(Number(groupId), true);
-      res.status(HTTP_RESPONSE_STATUS.OK).json(ResponseDTO.format({ data: menus, instanceName: MenuController.instanceName, status: HTTP_RESPONSE_STATUS.OK, method: HTTP_METHOD.GET }));
+      res.status(HTTP_RESPONSE_STATUS.OK).json(ResponseDTO.format({ data: menus, instanceName: MenuController.instanceName, status: HTTP_RESPONSE_STATUS.OK, method: HTTP_METHOD.GET }, req.t));
     } catch (error) {
       next(error);
     }
@@ -49,7 +49,7 @@ export class MenuController extends BaseController implements IBaseController {
       const { id } = req.params;
 
       const menu = await menuService.findById(Number(id));
-      res.status(HTTP_RESPONSE_STATUS.OK).json(ResponseDTO.format({ data: menu, instanceName: MenuController.instanceName, status: HTTP_RESPONSE_STATUS.OK, method: HTTP_METHOD.GET }));
+      res.status(HTTP_RESPONSE_STATUS.OK).json(ResponseDTO.format({ data: menu, instanceName: MenuController.instanceName, status: HTTP_RESPONSE_STATUS.OK, method: HTTP_METHOD.GET }, req.t));
     } catch (error) {
       next(error);
     }
@@ -67,7 +67,7 @@ export class MenuController extends BaseController implements IBaseController {
       }
 
       const updatedMenu = await menuService.updateOne(Number(groupId), menuData);
-      res.status(HTTP_RESPONSE_STATUS.OK).json(ResponseDTO.format({ data: updatedMenu, instanceName: MenuController.instanceName, status: HTTP_RESPONSE_STATUS.OK, method: HTTP_METHOD.PUT }));
+      res.status(HTTP_RESPONSE_STATUS.OK).json(ResponseDTO.format({ data: updatedMenu, instanceName: MenuController.instanceName, status: HTTP_RESPONSE_STATUS.OK, method: HTTP_METHOD.PUT }, req.t));
     } catch (error) {
       next(error);
     }

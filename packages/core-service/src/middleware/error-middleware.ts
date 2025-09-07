@@ -4,6 +4,7 @@ import { mapPrismaError } from "packages/core-service/src/utils/prismaErrMapper"
 import { errorHandler, ResponseDTO } from "shared";
 
 export const errorMiddleware = async (error: Error, req: Request, res: Response, _next: NextFunction) => {
+  console.log('Error Middleware Triggered:', error);
   if (error instanceof Prisma.PrismaClientInitializationError) {
     const err = mapPrismaError(error);
     if (err) {
@@ -17,6 +18,7 @@ export const errorMiddleware = async (error: Error, req: Request, res: Response,
     }
   } else {
     console.log('beside database')
+    console.log(req.t)
     const { status, output } = errorHandler(error, req.t);
     return res.status(status).json(output).end();
 

@@ -7,8 +7,7 @@ import { groupRoutes } from 'packages/core-service/src/routes/group-routes'
 import { userRoutes } from 'packages/core-service/src/routes/user-routes'
 import cors from 'cors';
 import { handle } from "i18next-http-middleware";
-import { i18n } from 'shared'
-
+import { i18n } from 'shared/src/i18n';
 dotenv.config()
 
 console.log(`Starting ${process.env.APP_NAME} on port ${process.env.APP_PORT}`)
@@ -32,6 +31,7 @@ webServer.use(errorMiddleware)
 //#endregion Middleware post Catch
 
 webServer.get('/', (req, res) => {
+  req.t('greeting') // 'hello world'
   res.json({
     message: req.t('welcome', { appName: process.env.APP_NAME || 'Express Boilerplate' })
     // message: req.t('greeting')

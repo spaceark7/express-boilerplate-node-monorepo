@@ -13,7 +13,7 @@ export class SysGroupController extends BaseController   {
      const groupService = SysGroupController.getService(req, SysGroupService);
      const group = await groupService.create(req.body);
      res.status(HTTP_RESPONSE_STATUS.CREATED).json(
-      ResponseDTO.format({ data: group, instanceName: SysGroupController.instanceName, status: HTTP_RESPONSE_STATUS.CREATED, method: HTTP_METHOD.POST })
+       ResponseDTO.format({ data: group, instanceName: SysGroupController.instanceName, status: HTTP_RESPONSE_STATUS.CREATED, method: HTTP_METHOD.POST }, req.t)
      );
    } catch (error) {
      next(error);
@@ -32,7 +32,7 @@ export class SysGroupController extends BaseController   {
      const groupService = SysGroupController.getService(req, SysGroupService);
      const groups = await groupService.findMany(query);
      res.status(HTTP_RESPONSE_STATUS.OK).json(
-      ResponseDTO.format({ data: groups, instanceName: SysGroupController.instanceName, status: HTTP_RESPONSE_STATUS.OK, method: HTTP_METHOD.GET })
+       ResponseDTO.format({ data: groups, instanceName: SysGroupController.instanceName, status: HTTP_RESPONSE_STATUS.OK, method: HTTP_METHOD.GET }, req.t)
      );
    } catch (error) {
      next(error);
@@ -45,7 +45,7 @@ export class SysGroupController extends BaseController   {
      const groupService = SysGroupController.getService(req, SysGroupService);
      const group = await groupService.findOne(Number(id));
      res.status(HTTP_RESPONSE_STATUS.OK).json(
-      ResponseDTO.format({ data: group, instanceName: SysGroupController.instanceName, status: HTTP_RESPONSE_STATUS.OK, method: HTTP_METHOD.GET })
+       ResponseDTO.format({ data: group, instanceName: SysGroupController.instanceName, status: HTTP_RESPONSE_STATUS.OK, method: HTTP_METHOD.GET }, req.t)
      );
    } catch (error) {
      next(error);
@@ -58,7 +58,7 @@ export class SysGroupController extends BaseController   {
      const groupService = SysGroupController.getService(req, SysGroupService);
      const group = await groupService.updateOne(Number(id), req.body);
      res.status(HTTP_RESPONSE_STATUS.OK).json(
-      ResponseDTO.format({ data: group, instanceName: SysGroupController.instanceName, status: HTTP_RESPONSE_STATUS.OK, method: HTTP_METHOD.PUT })
+       ResponseDTO.format({ data: group, instanceName: SysGroupController.instanceName, status: HTTP_RESPONSE_STATUS.OK, method: HTTP_METHOD.PUT }, req.t)
      );
    } catch (error) {
      next(error);
@@ -71,7 +71,7 @@ export class SysGroupController extends BaseController   {
      const groupService = SysGroupController.getService(req, SysGroupService);
      const result = await groupService.deleteOne(Number(id));
      res.status(HTTP_RESPONSE_STATUS.OK).json(
-      ResponseDTO.format({ data: result, instanceName: SysGroupController.instanceName, status: HTTP_RESPONSE_STATUS.OK, method: HTTP_METHOD.DELETE })
+       ResponseDTO.format({ data: result, instanceName: SysGroupController.instanceName, status: HTTP_RESPONSE_STATUS.OK, method: HTTP_METHOD.DELETE }, req.t)
      );
    } catch (error) {
      next(error);

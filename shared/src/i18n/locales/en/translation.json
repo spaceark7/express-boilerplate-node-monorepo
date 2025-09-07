@@ -1,0 +1,73 @@
+{
+  "welcome": "Welcome to {{appName}}!",
+  "greeting": "Hello",
+  "farewell": "Goodbye",
+  "user": {
+    "created": "User created successfully.",
+    "updated": "User updated successfully.",
+    "deleted": "User deleted successfully.",
+    "not_found": "User not found.",
+    "invalid_email": "Invalid email address.",
+    "invalid_password": "Password must be at least 6 characters.",
+    "invalid_phone": "Invalid phone number.",
+    "login_success": "Login successful.",
+    "login_failed": "Login failed. Please check your credentials.",
+    "unauthorized": "Unauthorized access.",
+    "forbidden": "You do not have permission to perform this action.",
+    "profile": {
+      "first_name": "First name",
+      "last_name": "Last name",
+      "email_secondary": "Secondary email",
+      "phone": "Phone number"
+    }
+  },
+  "group": {
+    "created": "Group created successfully.",
+    "updated": "Group updated successfully.",
+    "deleted": "Group deleted successfully.",
+    "not_found": "Group not found.",
+    "name": "Group name",
+    "description": "Description"
+  },
+  "menu": {
+    "created": "Menu created successfully.",
+    "updated": "Menu updated successfully.",
+    "deleted": "Menu deleted successfully.",
+    "not_found": "Menu not found.",
+    "name": "Menu name",
+    "label": "Label",
+    "icon": "Icon",
+    "path": "Path",
+    "order_number": "Order number",
+    "is_active": "Is active"
+  },
+  "validation": {
+    "required": "This field is required.",
+    "min_length": "Minimum length is {{min}} characters.",
+    "max_length": "Maximum length is {{max}} characters.",
+    "invalid_format": "Invalid format.",
+    "invalid_enum": "Invalid value.",
+    "invalid_date": "Invalid date."
+  },
+  "error": {
+    "internal_server": "Internal server error.",
+    "not_found": "Resource not found.",
+    "bad_request": "Bad request.",
+    "unauthorized": "Unauthorized.",
+    "forbidden": "Forbidden.",
+    "conflict": "Conflict detected.",
+    "validation": "Validation error.",
+    "database": "Database error.",
+    "jwt": {
+      "invalid": "Invalid JWT token.",
+      "missing": "Missing JWT token.",
+      "expired": "JWT token expired."
+    }
+  },
+  "success": {
+    "operation": "Operation completed successfully.",
+    "created": "Created successfully.",
+    "updated": "Updated successfully.",
+    "deleted": "Deleted successfully."
+  }
+}

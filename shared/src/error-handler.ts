@@ -1,4 +1,4 @@
-import type { TFunctionExt } from "i18next";
+import type { TFunctionExt } from "shared/src/i18n/@types/t-function-ext";
 import { ResponseDTO } from "shared/src/internal-response/response-dto";
 import { ResponseError } from "shared/src/response-error";
 import { HTTP_RESPONSE_STATUS } from "shared/src/types/internal-response";
