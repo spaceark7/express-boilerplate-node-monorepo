@@ -1,7 +1,6 @@
-import type { QueryOptions } from "@prisma/client/runtime/library";
 import type { NextFunction, Request, Response } from "express";
 import { SysGroupService } from "packages/core-service/src/modules/sys-group/group-services";
-import { parseQuery, type PrismaQuery, type QueryParseResult } from "prisma-query-tools";
+import { parseQuery, type PrismaQuery } from "prisma-query-tools";
 import { BaseController, HTTP_METHOD, HTTP_RESPONSE_STATUS, ResponseDTO } from "shared";
 export class SysGroupController extends BaseController   {
 

@@ -75,5 +75,33 @@ export class MenuController extends BaseController implements IBaseController {
 
   static async deleteOne(req: Request, res: Response, next: NextFunction) {
     // Call the service to delete a menu
+    try {
+      const menuService = MenuController.getService(req, MenuService);
+      const { menuId } = req.params;
+      if (!menuId) {
+        throw new ResponseError(400, 'Menu ID is required');
+      }
+
+      const deletedMenu = await menuService.deleteOne(Number(menuId));
+      res.status(HTTP_RESPONSE_STATUS.OK).json(ResponseDTO.format({ data: deletedMenu, instanceName: MenuController.instanceName, status: HTTP_RESPONSE_STATUS.OK, method: HTTP_METHOD.DELETE }, req.t));
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async deleteMany(req: Request, res: Response, next: NextFunction) {
+    // Call the service to delete multiple menus
+    try {
+      const menuService = MenuController.getService(req, MenuService);
+      const { items } = req.body;
+      if (!items || !Array.isArray(items) || items.length === 0) {
+        throw new ResponseError(400, 'Items Ids array is required');
+      }
+
+      const deletedMenus = await menuService.deleteMany(items);
+      res.status(HTTP_RESPONSE_STATUS.OK).json(ResponseDTO.format({ data: deletedMenus, instanceName: MenuController.instanceName, status: HTTP_RESPONSE_STATUS.OK, method: HTTP_METHOD.DELETE }, req.t));
+    } catch (error) {
+      next(error);
+    }
   }
 }

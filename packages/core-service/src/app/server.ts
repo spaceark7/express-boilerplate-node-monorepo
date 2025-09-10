@@ -1,13 +1,14 @@
 import express from 'express'
 import dotenv from 'dotenv'
+import cors from 'cors';
+import { handle } from "i18next-http-middleware";
+import { i18n } from 'shared/src/i18n';
 import { errorMiddleware } from 'packages/core-service/src/middleware/error-middleware'
 import { authRoutes } from 'packages/core-service/src/routes/auth-routes'
 import { menuRoutes } from 'packages/core-service/src/routes/menu-routes'
 import { groupRoutes } from 'packages/core-service/src/routes/group-routes'
 import { userRoutes } from 'packages/core-service/src/routes/user-routes'
-import cors from 'cors';
-import { handle } from "i18next-http-middleware";
-import { i18n } from 'shared/src/i18n';
+import { menuAclsRoutes } from 'packages/core-service/src/routes/menu-acls-routes'
 dotenv.config()
 
 console.log(`Starting ${process.env.APP_NAME} on port ${process.env.APP_PORT}`)
@@ -23,6 +24,7 @@ webServer.use('/api/v1', authRoutes);
 webServer.use('/api/v1', menuRoutes);
 webServer.use('/api/v1', groupRoutes);
 webServer.use('/api/v1', userRoutes);
+webServer.use('/api/v1', menuAclsRoutes);
 //#endregion Routes
 
 

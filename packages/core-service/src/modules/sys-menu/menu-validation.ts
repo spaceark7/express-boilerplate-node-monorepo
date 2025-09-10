@@ -8,7 +8,7 @@ export class MenuValidation {
     description: yup.string().max(200).optional(),
     path: yup.string().max(100).required(),
     icon: yup.string().max(50).optional(),
-    parentId: yup.number().integer().optional().nullable(),
+    parentId: yup.number().integer().optional(),
     acls: yup.array().of(yup.string().max(50)).optional().nullable(),
     isActive: yup.boolean().optional().nullable(),
     orderNumber: yup.number().integer().nullable()

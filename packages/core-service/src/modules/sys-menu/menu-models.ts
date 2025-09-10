@@ -4,7 +4,7 @@ import type { Menu } from "packages/core-service/src/generated/prisma"
 export type TSysMenu = Menu
 export type TSysMenuDTO = {
   id: number,
-  parentId: number | null,
+  parentId?: number | undefined,
   description: string | null,
   name: string,
   label: string,
@@ -13,7 +13,8 @@ export type TSysMenuDTO = {
   createdAt: Date,
   updatedAt: Date,
   isActive: boolean | undefined,
-  acls: string[],
+  actions: string[],
+  acls?: string[],
   children: TSysMenuDTO[] | undefined
   orderNumber: number | undefined
 }

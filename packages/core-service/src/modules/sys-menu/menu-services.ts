@@ -1,4 +1,6 @@
 import prismaClient from "packages/core-service/src/app/config/database";
+import type { Prisma, PrismaClient } from "packages/core-service/src/generated/prisma";
+import type { DefaultArgs } from "packages/core-service/src/generated/prisma/runtime/library";
 import type { TSysMenu, TSysMenuCreate, TSysMenuDTO, TSysMenuUpdate } from "packages/core-service/src/modules/sys-menu/menu-models";
 import { MenuValidation } from "packages/core-service/src/modules/sys-menu/menu-validation";
 import { HTTP_METHOD, ResponseError, Validation } from "shared";
@@ -93,6 +95,7 @@ export class MenuService {
         // deletedBy: menu.deletedBy,
         orderNumber: menu.orderNumber,
         isActive: groupEntry ? groupEntry.isActive : false,
+        actions: menu.acls?.map((acl: any) => acl.accessLevel.code) || [],
         acls: accessLevels,
         // Transform children recursively if they exist
         children: includeChild && menu.children && menu.children.length > 0
@@ -103,6 +106,39 @@ export class MenuService {
 
       return transformedMenu;
     }).sort((a, b) => (a.orderNumber || 0) - (b.orderNumber || 0));
+  }
+
+  /**
+ * Recursively get all descendant menu IDs (children, grandchildren, etc.)
+ * @param tx The transaction object
+ * @param menuId The parent menu ID
+ * @returns Array of all descendant menu IDs
+ */
+  private async getAllDescendantMenuIds(tx: Omit<PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>, "$connect" | "$disconnect" | "$on" | "$transaction" | "$extends">, menuId: number): Promise<number[]> {
+    const directChildren = await tx.menu.findMany({
+      where: {
+        parentId: menuId,
+        deletedAt: null
+      },
+      select: {
+        id: true
+      }
+    });
+
+    if (directChildren.length === 0) {
+      return [];
+    }
+
+    const childIds = directChildren.map(child => child.id);
+    let allDescendantIds = [...childIds];
+
+    // Recursively get descendants for each direct child
+    for (const childId of childIds) {
+      const descendants = await this.getAllDescendantMenuIds(tx, childId);
+      allDescendantIds = [...allDescendantIds, ...descendants];
+    }
+
+    return allDescendantIds;
   }
 
   static async checkUserGroupPermissions(user: IUserJWTPayload, path: string, method: keyof typeof HTTP_METHOD) {
@@ -184,7 +220,7 @@ export class MenuService {
 
       return menuWithPermission.isActive
     } else {
-      const hasRequiredPermission = menuWithPermission.acls.includes(requiredPermission);
+      const hasRequiredPermission = menuWithPermission.actions.includes(requiredPermission);
       console.log(`User Group ${user.groupId} has required permission for ${path} [${method}]:`, hasRequiredPermission);
       return hasRequiredPermission;
     }
@@ -207,14 +243,14 @@ export class MenuService {
       throw new ResponseError(400, "Menu already exists with this name or path");
     }
 
-    const newMenu = await prismaClient.$transaction(async (tx) => {
+    const result = await prismaClient.$transaction(async (tx) => {
       // 1. Create the new menu
       // check if order number is already used
       if (orderNumber !== null && orderNumber !== undefined) {
         const isOrderNumberUsed = await tx.menu.findFirst({
           where: {
             orderNumber: orderNumber,
-            parentId: requestData.parentId || null,
+            parentId: requestData.parentId,
             deletedAt: null
           }
         });
@@ -223,22 +259,63 @@ export class MenuService {
           throw new ResponseError(400, "Order number is already used");
         }
       }
+      // If parentId is provided, check if parent menu exists
+      if (requestData.parentId) {
+        const isParentExist = await tx.menu.findFirst({
+          where: {
+            id: requestData.parentId,
+            deletedAt: null
+          }
+        });
+        if (!isParentExist) {
+          throw new ResponseError(400, "Parent menu not found");
+        }
+      }
+
+      const whereCondition: any = {
+        deletedAt: null,
+      };
+
+      if (requestData.parentId) {
+        whereCondition.id = requestData.parentId;
+      } else {
+        whereCondition.parentId = null;
+      }
 
       // Find last menu order number
       const lastMenu = await tx.menu.findFirst({
-        where: {
-          parentId: requestData.parentId || null,
-          deletedAt: null
-        },
+        where: whereCondition,
         orderBy: {
           orderNumber: 'desc'
+        },
+        include: {
+          children: true
         }
       });
+      console.log('Last menu under parent:', lastMenu);
+
+      let newOrderNumber = 1;
+
+      if (requestData.parentId) {
+        const childs = lastMenu?.children || [];
+        console.log('Child menus under parent:', childs);
+        if (childs.length > 0) {
+          newOrderNumber = (Math.max(...childs.map(c => c.orderNumber || 0)) || 0) + 1;
+          console.log('Calculated new order number under parent:', newOrderNumber);
+        }
+      } else {
+        if (lastMenu && lastMenu.orderNumber) {
+          newOrderNumber = lastMenu.orderNumber + 1;
+        }
+      }
+
+
+      console.log('Last menu order number:', lastMenu?.orderNumber);
 
       const newMenu = await tx.menu.create({
         data: {
           ...requestData,
-          orderNumber: orderNumber && orderNumber !== undefined ? orderNumber : (lastMenu?.orderNumber || 0) + 1
+          orderNumber: orderNumber && orderNumber !== undefined ? orderNumber : newOrderNumber
         }
       });
 
@@ -254,12 +331,11 @@ export class MenuService {
 
       // 3. Create MenuGroup entries for each group with isActive=false by default
       if (activeGroups.length > 0) {
-
         await tx.menuGroup.createMany({
           data: activeGroups.map(g => ({
             menuId: newMenu.id,
             groupId: g.id,
-            isActive: isActive && g.id === groupId ? isActive : false,
+            isActive: isActive ? isActive : false,
           }))
         });
       }
@@ -279,38 +355,66 @@ export class MenuService {
           });
 
           if (menuGroup) {
-            // Create or find access levels for each code and create the access entries
-            for (const aclCode of acls) {
-              // Try to find the access level
-              let accessLevel = await tx.accessLevel.findFirst({
+            const normalizedAcls = acls.map(code => code.toUpperCase());
+
+            // 1. Find all existing access levels in a single query
+            const existingAccessLevels = await tx.accessLevel.findMany({
+              where: {
+                code: {
+                  in: normalizedAcls,
+                  mode: 'insensitive'
+                }
+              }
+            });
+
+            // 2. Determine which access levels need to be created
+            const existingCodes = new Set(existingAccessLevels.map(level => level.code.toUpperCase()));
+            const codesToCreate = normalizedAcls.filter(code => !existingCodes.has(code));
+
+            // 3. Create missing access levels in bulk
+            let newAccessLevels: any[] = [];
+            if (codesToCreate.length > 0) {
+              newAccessLevels = await tx.accessLevel.createManyAndReturn({
+                data: codesToCreate.map(code => ({
+                  code,
+                  description: `Access level for ${code}`
+                })),
+                select: { id: true, code: true, description: true },
+                skipDuplicates: true
+              });
+
+              console.log('Created new access levels:', newAccessLevels);
+
+              // Fetch the newly created levels to get their IDs
+              const createdLevels = await tx.accessLevel.findMany({
                 where: {
                   code: {
-                    equals: aclCode,
-                    mode: 'insensitive' // Case insensitive matching
+                    in: codesToCreate,
                   }
                 }
               });
 
-              // If not found, create it
-              if (!accessLevel) {
-                // Convert to uppercase for consistency
-                const upperCode = aclCode.toUpperCase();
-                accessLevel = await tx.accessLevel.create({
-                  data: {
-                    code: upperCode,
-                    description: `Access level for ${upperCode}`
-                  }
-                });
-              }
-
-              // Create the access entry
-              await tx.menuGroupAccess.create({
-                data: {
-                  menuGroupId: menuGroup.id,
-                  accessLevelId: accessLevel.id
-                }
-              });
+              // Combine with existing levels
+              existingAccessLevels.push(...createdLevels);
             }
+
+            // 4. Create MenuAccessLevel entries in bulk
+            await tx.menuAccessLevel.createMany({
+              data: existingAccessLevels.map(level => ({
+                menuId: newMenu.id,
+                accessLevelId: level.id
+              })),
+              skipDuplicates: true
+            });
+
+            // 5. Create MenuGroupAccess entries in bulk
+            // await tx.menuGroupAccess.createMany({
+            //   data: existingAccessLevels.map(level => ({
+            //     menuGroupId: menuGroup.id,
+            //     accessLevelId: level.id
+            //   })),
+            //   skipDuplicates: true
+            // });
           }
         }
       }
@@ -329,7 +433,7 @@ export class MenuService {
         : menuWithGroups;
     });
 
-    return newMenu;
+    return result;
   }
   // Temporary findMany method, it will process reqParams later
   async findMany() {
@@ -340,7 +444,7 @@ export class MenuService {
 
       },
       orderBy: {
-        name: 'asc'
+        orderNumber: 'desc'
       },
       include: {
         parent: {
@@ -355,13 +459,17 @@ export class MenuService {
             deletedAt: null
           },
           orderBy: {
-            name: 'asc'
+            orderNumber: 'desc'
           },
-
           include: {
             groups: {
               include: {
-                group: true
+                group: true,
+                access: {
+                  select: {
+                    accessLevel: true
+                  }
+                }
               }
             },
             children: {
@@ -369,12 +477,18 @@ export class MenuService {
                 deletedAt: null
               },
               orderBy: {
-                name: 'asc'
+                orderNumber: 'desc'
               },
+
               include: {
                 groups: {
                   include: {
-                    group: true
+                    group: true,
+                    access: {
+                      select: {
+                        accessLevel: true
+                      }
+                    }
                   }
                 },
                 acls: {
@@ -388,7 +502,17 @@ export class MenuService {
         },
         groups: {
           include: {
-            group: true
+            group: true,
+            access: {
+              select: {
+                accessLevel: {
+                  select: {
+                    code: true
+                  }
+                }
+              },
+
+            }
           }
         },
         acls: {
@@ -571,7 +695,6 @@ export class MenuService {
   }
 
   async updateOne(groupId: number, menuData: TSysMenuUpdate) {
-
     //TODO: send all data structure for re ordering, re ordering happens in frontend
     const requestData = await MenuValidation.MENU_UPDATE_SCHEMA.validate(menuData);
     console.log(`${MenuService.name}:${this.updateOne.name}:requestData`, requestData);
@@ -667,14 +790,12 @@ export class MenuService {
         });
       }
 
-
-
       // 3. Update access levels if provided using a simpler approach
       if (acls !== undefined && Array.isArray(acls)) {
         // First, remove all existing access entries for this menu-group
-        await tx.menuGroupAccess.deleteMany({
+        await tx.menuAccessLevel.deleteMany({
           where: {
-            menuGroupId: menuGroup.id
+            menuId
           }
         });
 
@@ -683,13 +804,11 @@ export class MenuService {
           // Create or find access levels for each code
           for (const aclCode of acls) {
             if (aclCode) {
-
-
               // Try to find the access level
               let accessLevel = await tx.accessLevel.findFirst({
                 where: {
                   code: {
-                    equals: aclCode,
+                    equals: aclCode.toUpperCase(),
                     mode: 'insensitive' // Case insensitive matching
                   }
                 }
@@ -708,9 +827,9 @@ export class MenuService {
               }
 
               // Create the access entry
-              await tx.menuGroupAccess.create({
+              await tx.menuAccessLevel.create({
                 data: {
-                  menuGroupId: menuGroup.id,
+                  menuId: menuId,
                   accessLevelId: accessLevel.id
                 }
               });
@@ -724,7 +843,7 @@ export class MenuService {
         where: { id: menuId },
         include: this.getMenuInclude()
       });
-
+      console.log(`${MenuService.name}:${this.updateOne.name}:transaction:updatedMenu`, { updatedMenu });
 
       // 5. Transform to desired format
       return this.transformMenusForGroup([updatedMenu], groupId)[0];
@@ -734,6 +853,129 @@ export class MenuService {
   }
 
   async deleteOne(menuId: number) {
-    // Delete menu logic here
+    return await prismaClient.$transaction(async (tx) => {
+      const menu = await tx.menu.findUnique({
+        where: {
+          id: menuId,
+          deletedAt: null
+        }
+      });
+
+      if (!menu) {
+        throw new ResponseError(404, "Menu not found");
+      }
+      // Soft delete the menu
+      const deletedMenu = await tx.menu.update({
+        where: { id: menuId },
+        data: {
+          name: `${menu.name}_deleted_${Date.now()}`,
+          path: `${menu.path}_deleted_${Date.now()}`,
+          deletedAt: new Date(),
+          deletedBy: this.user?.email || 'system',
+          orderNumber: null
+        },
+        include: {
+          children: true
+        }
+      });
+
+      if (deletedMenu.parentId) {
+        // Reorder sibling menus
+        const siblingMenus = await tx.menu.findMany({
+          where: {
+            parentId: deletedMenu.parentId,
+            deletedAt: null
+          },
+          orderBy: {
+            orderNumber: 'asc'
+          },
+          select: {
+            id: true,
+            orderNumber: true
+          }
+        });
+
+        if (siblingMenus.length > 0) {
+          console.log('Sibling menus before reordering:', siblingMenus);
+          // Reorder sibling menus
+          await tx.menu.updateMany({
+            where: {
+              parentId: deletedMenu.parentId, deletedAt: null,
+              orderNumber: { gt: deletedMenu.orderNumber || 0 }
+            },
+            data: {
+              orderNumber: {
+                increment: -1
+              }
+            }
+          });
+        }
+        console.log('Sibling menus after reordering:', siblingMenus);
+      }
+
+      if (deletedMenu.children && deletedMenu.children.length > 0) {
+        // Soft delete all child menus
+        // Get all descendant menus (children, grandchildren, etc.)
+        const allDescendantIds = await this.getAllDescendantMenuIds(tx, deletedMenu.id);
+        console.log('All descendant menu IDs to be deleted:', allDescendantIds);
+
+        if (allDescendantIds.length > 0) {
+          const deletedMenus = await tx.menu.updateManyAndReturn({
+            where: {
+              id: {
+                in: allDescendantIds
+              },
+              deletedAt: null
+            },
+            data: {
+              deletedAt: new Date(),
+              deletedBy: this.user?.email || 'system',
+              orderNumber: null
+            }
+          });
+          console.log('Deleted descendant menus:', deletedMenus);
+          // Perform any additional actions with deletedMenus if needed
+          if (deletedMenus.length) {
+            await tx.menu.updateMany({
+              where: {
+                id: {
+                  in: deletedMenus.map(m => m.id)
+                }
+              },
+              data: {
+                name: `deleted_${Date.now()}`,
+                path: `deleted_${Date.now()}`,
+                deletedAt: new Date(),
+                deletedBy: this.user?.email || 'system',
+                orderNumber: null
+              }
+            });
+          }
+
+        }
+
+      }
+
+      return `${menu.name} Menu deleted successfully`;
+    }
+    )
+  }
+
+  async deleteMany(menuIds: number[]) {
+    // Delete multiple menus logic here
+    const deletedMenus = await prismaClient.menu.updateManyAndReturn({
+      where: {
+        id: {
+          in: menuIds
+        },
+        deletedAt: null
+      },
+      data: {
+        deletedAt: new Date(),
+        deletedBy: this.user?.email || 'system'
+      }
+    });
+
+    return deletedMenus.map(menu => `${menu.name} Menu deleted successfully`);
   }
 }

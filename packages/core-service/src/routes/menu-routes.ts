@@ -13,4 +13,5 @@ menuRoutes.get("/menus/group/:groupId", MenuController.findByGroupId);
 menuRoutes.put("/menus/group/:groupId", MenuController.updateOne);
 menuRoutes.get("/menus/:id", MenuController.findById);
 menuRoutes.put("/menus/:id", MenuController.updateOne);
-menuRoutes.delete("/menus/:id", MenuController.deleteOne);
+menuRoutes.delete("/menus/many", MenuController.deleteMany);
+menuRoutes.delete("/menus/:menuId", MenuController.deleteOne);
